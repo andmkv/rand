@@ -1,6 +1,6 @@
 # Randomize USR
 
-Try the current version at [rand.smallhall.net](https://rand.smallhall.net) · [More apps and games](https://smallhall.net)
+Try the current version at [rand.smallhall.org](https://rand.smallhall.org) · [More apps and games](https://smallhall.net)
 
 Randomize USR is a child-friendly, ZX Spectrum-inspired coding storybook. It combines a pixel screen, an editable BASIC-like language, original built-in examples, sound and sprite editors, and optional hosted projects.
 
