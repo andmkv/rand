@@ -82,6 +82,10 @@ The **Randomize USR Handbook** is a guest-accessible, hands-on course and BASIC 
 
 The official build includes the localized footer `© 2026 Smallhall.net – More apps and games`. MIT-licensed forks can remove it at build time with `VITE_SHOW_BRAND_FOOTER=false`; the link points to `https://smallhall.net`. Branding is not an additional condition of the MIT license.
 
+## Fonts
+
+SCREEN text uses the custom 8×8 RandUSR bitmap font from `graphics/RandUSRfont.png` (Latin, digits, punctuation, Russian/Ukrainian/Serbian Cyrillic, Serbian Latin and Western European accents). Atlas cells are not in ASCII/Unicode order: `scripts/build-randusr-font.mjs` holds the explicit cell→character table and regenerates `src/runtime/randusr-font.json`. Ambiguous cells (identical open/close quote pairs) stay unassigned and typographic quotes fall back to ASCII cells; characters outside the atlas (e.g. Japanese) fall back to the Handjet/DotGothic16 atlas, anything else draws a crossed box. The UI uses [Victor Mono](https://fonts.google.com/specimen/Victor+Mono) from Google Fonts (the Caddy CSP allows fonts.googleapis.com and fonts.gstatic.com); the code editor disables its ligatures.
+
 ## License and third-party notices
 
 See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md). Bundled Handjet and DotGothic16 fonts include their respective SIL Open Font License notices in `public/fonts/`.

@@ -20,7 +20,7 @@ for (const viewport of [
     );
     await page.evaluate(() => document.fonts.ready);
     expect(
-      await page.evaluate(() => document.fonts.check("24px Handjet")),
+      await page.evaluate(() => document.fonts.check('18px "Victor Mono"')),
     ).toBe(true);
     for (const name of ["SPELLBOOK", "EXAMPLES", "INVENTORY"]) {
       const handle = page.getByRole("button", { name, exact: true });
