@@ -1,0 +1,17 @@
+:80 {
+  handle /api/* {
+    reverse_proxy api:3001
+  }
+  handle {
+    root * /srv
+    try_files {path} /index.html
+    file_server
+  }
+  @private path /p/* /admin /admin/* /classes /classes/* /assignments/* /submissions/* /me/* /settings /invite /verify /reset-password
+  header @private X-Robots-Tag "noindex, nofollow"
+  header X-Content-Type-Options nosniff
+  header Referrer-Policy no-referrer
+  header X-Frame-Options DENY
+  header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+}

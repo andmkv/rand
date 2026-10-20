@@ -1,0 +1,5 @@
+# Optional example for a dedicated host where Caddy may bind ports 80/443.
+# On a shared host, configure this domain in the existing reverse proxy instead.
+usr.example.org {
+  reverse_proxy 127.0.0.1:8080
+}

@@ -1,0 +1,94 @@
+name: randusr
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: randusr
+      POSTGRES_USER: randusr
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your uncommitted .env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U randusr -d randusr"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    build:
+      context: .
+      target: api
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Set the URL-encoded DATABASE_URL for db in your uncommitted .env}
+    command: ["node", "dist-server/server/db/migrate.js"]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+  api:
+    build:
+      context: .
+      target: api
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL}
+      TRUST_PROXY_HOPS: "1"
+      MAX_SOURCE_CHARACTERS: ${MAX_SOURCE_CHARACTERS:-100000}
+      MAX_PROJECTS_PER_USER: ${MAX_PROJECTS_PER_USER:-1000}
+      MAX_PROJECT_PAYLOAD_BYTES: ${MAX_PROJECT_PAYLOAD_BYTES:-524288}
+      MAX_PUBLICATIONS_PER_15_MINUTES: ${MAX_PUBLICATIONS_PER_15_MINUTES:-20}
+      MAX_AUTOSAVES_PER_MINUTE: ${MAX_AUTOSAVES_PER_MINUTE:-120}
+      REVISION_KEEP_COUNT: ${REVISION_KEEP_COUNT:-50}
+      REVISION_KEEP_DAYS: ${REVISION_KEEP_DAYS:-30}
+      ADMIN_BOOTSTRAP_EMAIL: ${ADMIN_BOOTSTRAP_EMAIL:?Run npm run setup and set ADMIN_BOOTSTRAP_EMAIL}
+      NODE_ENV: ${NODE_ENV:-production}
+      APP_BASE_URL: ${APP_BASE_URL:?Run npm run setup and set APP_BASE_URL}
+      MAIL_MODE: ${MAIL_MODE:-smtp}
+      MAIL_DIRECTORY: /tmp/randusr-mail
+      SMTP_HOST: ${SMTP_HOST:?Run npm run setup and set SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:?Run npm run setup and set SMTP_USER}
+      SMTP_PASSWORD_FILE: /run/secrets/smtp_password
+      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:?Run npm run setup and set SMTP_FROM_EMAIL}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME:-Randomize USR}
+      PUBLIC_REGISTRATION_ENABLED: ${PUBLIC_REGISTRATION_ENABLED:-false}
+      DEMO_MODE_ENABLED: ${DEMO_MODE_ENABLED:-true}
+      DEMO_IDLE_MINUTES: ${DEMO_IDLE_MINUTES:-60}
+      DEMO_ABSOLUTE_HOURS: ${DEMO_ABSOLUTE_HOURS:-24}
+      DEMO_MAX_SESSIONS: ${DEMO_MAX_SESSIONS:-50}
+      DEMO_MAX_PROJECTS: ${DEMO_MAX_PROJECTS:-10}
+      DEMO_MAX_SESSION_BYTES: ${DEMO_MAX_SESSION_BYTES:-4194304}
+      DEMO_MAX_STORE_BYTES: ${DEMO_MAX_STORE_BYTES:-67108864}
+      PRODUCT_ANALYTICS_ENABLED: ${PRODUCT_ANALYTICS_ENABLED:-false}
+      PRODUCT_ANALYTICS_NOTICE_VERSION: ${PRODUCT_ANALYTICS_NOTICE_VERSION:-}
+      PRODUCT_ANALYTICS_NOTICE_URL: ${PRODUCT_ANALYTICS_NOTICE_URL:-}
+      TERMS_VERSION: ${TERMS_VERSION:-}
+      PRIVACY_VERSION: ${PRIVACY_VERSION:-}
+      TERMS_URL: ${TERMS_URL:-}
+      PRIVACY_URL: ${PRIVACY_URL:-}
+      SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
+    volumes:
+      - "${SMTP_PASSWORD_FILE:?Run npm run setup and set SMTP_PASSWORD_FILE}:/run/secrets/smtp_password:ro"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/v1/ready',{signal:AbortSignal.timeout(2000)}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        VITE_SHOW_BRAND_FOOTER: ${VITE_SHOW_BRAND_FOOTER:-true}
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  postgres-data:

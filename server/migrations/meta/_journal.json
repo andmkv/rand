@@ -1,0 +1,90 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792272507533,
+      "tag": "0000_sudden_spiral",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792272532656,
+      "tag": "0001_quiet_genesis",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792274783530,
+      "tag": "0002_immutable-revisions",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792275134974,
+      "tag": "0003_publication-metadata",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792275938398,
+      "tag": "0004_featured-projects",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792301011565,
+      "tag": "0005_assignment-workspaces",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792310000000,
+      "tag": "0006_closed-test-invitations",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792310600000,
+      "tag": "0007_product-events",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792311200000,
+      "tag": "0008_project-previews",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792311800000,
+      "tag": "0009_card45-remove-classroom",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1792411200000,
+      "tag": "0010_user-assets",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1792487402000,
+      "tag": "0011_sound-assets",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "updated": "2026-10-20",
+  "build": "84bb1e7",
+  "parts": [
+    {
+      "id": "meet",
+      "title": { "en": "Part I · Meet the machine", "ru": "Часть I · Знакомство с машиной" },
+      "chapters": ["getting-started", "first-picture", "shapes-and-text", "variables", "loops", "decisions"]
+    },
+    {
+      "id": "worlds",
+      "title": { "en": "Part II · Living worlds", "ru": "Часть II · Живые миры" },
+      "chapters": ["sprites", "motion", "lists", "sound"]
+    },
+    {
+      "id": "games",
+      "title": { "en": "Part III · Make games", "ru": "Часть III · Делаем игры" },
+      "chapters": ["keyboard", "collisions-and-score", "your-first-game", "reading-real-games"]
+    },
+    {
+      "id": "own",
+      "title": { "en": "Part IV · Your own pictures and sounds", "ru": "Часть IV · Свои картинки и звуки" },
+      "chapters": ["pixel-editor", "sound-lab"]
+    },
+    {
+      "id": "projects",
+      "title": { "en": "Part V · Projects and sharing", "ru": "Часть V · Проекты и публикация" },
+      "chapters": ["saving-and-sharing"]
+    },
+    {
+      "id": "reference",
+      "title": { "en": "Part VI · Reference", "ru": "Часть VI · Справочник" },
+      "chapters": [
+        "ref-language",
+        "ref-drawing",
+        "ref-time-input",
+        "ref-sprites",
+        "ref-lists",
+        "ref-math",
+        "ref-sound",
+        "ref-assets",
+        "ref-errors",
+        "troubleshooting",
+        "glossary",
+        "challenges",
+        "roadmap"
+      ]
+    }
+  ]
+}

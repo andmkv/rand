@@ -1,0 +1,18 @@
+export const palette = [
+  "#000000",
+  "#0000bf",
+  "#bf0000",
+  "#bf00bf",
+  "#00bf00",
+  "#00bfbf",
+  "#bfbf00",
+  "#bfbfbf",
+  "#000000",
+  "#0000ff",
+  "#ff0000",
+  "#ff00ff",
+  "#00ff00",
+  "#00ffff",
+  "#ffff00",
+  "#ffffff",
+];

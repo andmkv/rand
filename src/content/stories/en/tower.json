@@ -1,0 +1,78 @@
+[
+  {
+    "starter": "BORDER 1\nINK 6",
+    "example": "BORDER 1\nINK 6\nTEXT 40,90,\"HELLO TOWER\"",
+    "hint": "DRAW \u2192 TEXT writes words at x,y.",
+    "condition": {
+      "event": "TEXT"
+    }
+  },
+  {
+    "starter": "",
+    "example": "CAT = SPAWN(\"cat\",80,130)\nCAT.SAY \"FOLLOW ME\"",
+    "hint": "WORLD \u2192 SPAWN can summon a cat.",
+    "condition": {
+      "event": "SPAWN:cat"
+    }
+  },
+  {
+    "starter": "INK 6",
+    "example": "INK 6\nFOR S = 1 TO 6\n  FILLBOX S*28,170-S*20,28,12\nNEXT S",
+    "hint": "LOGIC \u2192 FOR repeats magic with a changing number.",
+    "condition": {
+      "event": "FILLBOX",
+      "minimum": 6
+    }
+  },
+  {
+    "starter": "CAT = SPAWN(\"cat\",40,130)",
+    "example": "CAT = SPAWN(\"cat\",40,130)\nKEY = SPAWN(\"key\",180,130)\nCAT.MOVE 180,130\nIF CAT.X = KEY.X THEN\n  CAT.SAY \"OPEN!\"\nEND IF",
+    "hint": "WORLD \u2192 .MOVE sends your cat to a point.",
+    "condition": {
+      "events": ["SPAWN:key", "MOVE", "SAY"]
+    }
+  },
+  {
+    "starter": "",
+    "example": "FOR G = 1 TO 3\n  BOO = SPAWN(\"ghost\",G*65,100)\n  BOO.MOVE_BY 0,-20\n  WAIT 0.2\nNEXT G",
+    "hint": "Use FOR with SPAWN, .MOVE_BY and WAIT.",
+    "condition": {
+      "event": "SPAWN:ghost",
+      "minimum": 3
+    }
+  },
+  {
+    "starter": "TEMPO 140",
+    "example": "TEMPO 140\nNOTE \"C4\",0.5\nNOTE \"E4\",0.5\nNOTE \"G4\",0.5\nNOTE \"C5\",1",
+    "hint": "SOUND \u2192 NOTE plays a pitch for a number of beats.",
+    "condition": {
+      "event": "NOTE",
+      "minimum": 4
+    }
+  },
+  {
+    "starter": "INK 2",
+    "example": "INK 2\nFOR X = 90 TO 150 STEP 15\n  BOX X,100,14,14\nNEXT X\nBOMB = SPAWN(\"dynamite\",128,105)\nBOMB.EXPLODE",
+    "hint": "WORLD \u2192 .EXPLODE clears things near the dynamite.",
+    "condition": {
+      "events": ["BOX", "SPAWN:dynamite", "EXPLODE"]
+    }
+  },
+  {
+    "starter": "INK 6",
+    "example": "INK 6\nFOR S = 1 TO 15\n  STAR = SPAWN(\"star\",RND(10,245),RND(10,180))\nNEXT S",
+    "hint": "LOGIC \u2192 RND picks a new whole number each time.",
+    "condition": {
+      "event": "SPAWN:star",
+      "minimum": 15
+    }
+  },
+  {
+    "starter": "",
+    "example": "INPUT \"Who woke the tower?\",NAME\nINK 6\nTEXT 20,90,NAME\nSOUND \"coin\"",
+    "hint": "FLOW \u2192 INPUT asks a question, then TEXT can write the answer.",
+    "condition": {
+      "events": ["INPUT", "TEXT", "SOUND"]
+    }
+  }
+]
