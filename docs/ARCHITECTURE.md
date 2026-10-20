@@ -6,7 +6,7 @@ Randomize USR has a browser client, a JSON API and PostgreSQL persistence. A sel
 
 `src/main.tsx` routes the SPA. `src/App.tsx` composes editor, story, cloud, inventory, Sound Lab and account flows. `src/api.ts` handles same-origin requests, CSRF and response errors. `src/project.ts` validates portable `.randusr` snapshots and local recovery.
 
-The lexer/parser in `src/runtime/language.ts` produce a located typed AST. `src/runtime/engine.ts` interprets it cooperatively in the browser. `src/runtime/world.ts` owns the pixel display and commands. Runtime audio, Sound Lab previews and BASIC sound commands share the bounded Web Audio engine in `src/runtime/audio.ts`. User BASIC is not sent to the server for execution and cannot access JavaScript globals, filesystem, network or DOM APIs.
+The lexer/parser in `src/runtime/language.ts` produce a located typed AST. `src/runtime/engine.ts` interprets it cooperatively in the browser; `execute` returns a small flow signal so `EXIT DO/FOR/SUB` unwind exactly one construct, and `SUB`s are hoisted into a name table before the first statement runs, with a 32-level call-depth cap. `src/runtime/world.ts` owns the pixel display and commands. Runtime audio, Sound Lab previews and BASIC sound commands share the bounded Web Audio engine in `src/runtime/audio.ts`. User BASIC is not sent to the server for execution and cannot access JavaScript globals, filesystem, network or DOM APIs.
 
 Built-in BASIC, examples and Spellbook content live in `src/content/`; canonical assets and manifests live in `src/runtime/assets.ts`. Localized UI and content are sourced from `src/locales/` and `localization/`.
 

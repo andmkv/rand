@@ -58,7 +58,9 @@ summary: Short definitions of the words used in this handbook and in the app.
 
 **Inventory** — The drawer that shows everything you can use: sprites and sounds.
 
-**Loop** — A block that repeats: `FOR … NEXT` counts, `DO … LOOP` goes on forever.
+**List** — An ordered row of values, built with `LIST(…)`. `ITEM` reads, `SET` changes and `PUSH` adds to it.
+
+**Loop** — A block that repeats: `FOR … NEXT` counts, `DO … LOOP` goes on until you press STOP or run `EXIT DO`.
 
 **Method** — An order to a sprite, written after a dot: `CAT.MOVE 10,20`.
 
@@ -91,6 +93,8 @@ summary: Short definitions of the words used in this handbook and in the app.
 **Story** — The guided adventure mode of the editor.
 
 **String** — Text in quotation marks: `"hello"`.
+
+**Subroutine (SUB)** — A named piece of a program. `SUB DRAW_TREE … END SUB` defines it and `CALL DRAW_TREE` runs it, as often as you like.
 
 **Tempo** — The speed of music, in beats per minute.
 

@@ -35,6 +35,7 @@ export interface Host {
 export const commands = [
   "FRAME",
   "PUSH",
+  "SET",
   "SFX",
   "CLS",
   "INK",
@@ -81,11 +82,20 @@ export const functions = [
   "LIST",
   "ITEM",
   "COUNT",
+  "MIN",
+  "MAX",
+  "INT",
+  "MOD",
 ];
 export function sprite(value: Value | undefined): Sprite {
   if (!value || typeof value !== "object" || Array.isArray(value))
     throw new SpellError("object");
   return value;
+}
+/** Remainder that is never negative for a positive divisor: -1 MOD 8 = 7. */
+function modulo(x: number, y: number): number {
+  if (y === 0) throw new SpellError("zero");
+  return ((x % y) + y) % y;
 }
 function list(value: Value): Value[] {
   if (!Array.isArray(value)) throw new SpellError("list");
@@ -128,8 +138,13 @@ export function unknown(value: string, known: string[]): never {
         : "",
   });
 }
+/** What a block hands back to its caller: nothing, or "leave this loop/SUB". */
+type Flow = void | "DO" | "FOR" | "SUB";
+const maxCallDepth = 32;
 export class Engine {
   variables = new Map<string, Value>();
+  subs = new Map<string, Stmt[]>();
+  callDepth = 0;
   controller = new AbortController();
   statements = 0;
   iterations = 0;
@@ -280,6 +295,8 @@ export class Engine {
           case "/":
             if (y === 0) throw new SpellError("zero");
             return x / y;
+          case "MOD":
+            return modulo(x, y);
           case "<":
             return x < y;
           case ">":
@@ -309,6 +326,16 @@ export class Engine {
           if (!Number.isInteger(index) || index < 1 || index > values.length)
             throw new SpellError("index");
           return values[index - 1];
+        }
+        if (e.name === "MIN" || e.name === "MAX") {
+          count(a, 2, e.name);
+          const x = numeric(a[0]),
+            y = numeric(a[1]);
+          return e.name === "MIN" ? Math.min(x, y) : Math.max(x, y);
+        }
+        if (e.name === "MOD") {
+          count(a, 2, e.name);
+          return modulo(numeric(a[0]), numeric(a[1]));
         }
         if (e.name === "KEY") {
           count(a, 1, e.name);
@@ -354,6 +381,7 @@ export class Engine {
           COS: Math.cos,
           ABS: Math.abs,
           ROUND: Math.round,
+          INT: Math.floor,
         };
         if (!Object.hasOwn(f, e.name))
           return unknown(e.spelling ?? e.name, functions);
@@ -362,7 +390,7 @@ export class Engine {
       }
     }
   }
-  async execute(body: Stmt[]): Promise<void> {
+  async execute(body: Stmt[]): Promise<Flow> {
     for (const s of body) {
       this.loc = s;
       this.statements++;
@@ -373,10 +401,15 @@ export class Engine {
         case "assign":
           this.variables.set(s.name, this.evaluate(s.value));
           break;
-        case "if":
-          if (this.evaluate(s.condition)) await this.execute(s.body);
-          else if (s.otherwise) await this.execute(s.otherwise);
+        case "if": {
+          const flow = this.evaluate(s.condition)
+            ? await this.execute(s.body)
+            : s.otherwise
+              ? await this.execute(s.otherwise)
+              : undefined;
+          if (flow) return flow;
           break;
+        }
         case "for": {
           const start = numeric(this.evaluate(s.start)),
             end = numeric(this.evaluate(s.end)),
@@ -391,7 +424,9 @@ export class Engine {
             if (++loopIterations > this.limits.iterations)
               throw new SpellError("limit");
             this.variables.set(s.name, x);
-            await this.execute(s.body);
+            const flow = await this.execute(s.body);
+            if (flow === "FOR") break;
+            if (flow) return flow;
           }
           break;
         }
@@ -399,8 +434,28 @@ export class Engine {
           while (true) {
             this.iterations++;
             await this.checkpoint();
-            await this.execute(s.body);
+            const flow = await this.execute(s.body);
+            if (flow === "DO") break;
+            if (flow) return flow;
           }
+          break;
+        }
+        case "exit":
+          return s.kind;
+        case "sub":
+          // Only a definition: the body runs when CALLed.
+          break;
+        case "callsub": {
+          const body = this.subs.get(s.name);
+          if (!body) unknown(s.spelling ?? s.name, [...this.subs.keys()]);
+          if (this.callDepth >= maxCallDepth) throw new SpellError("limit");
+          this.callDepth++;
+          try {
+            await this.execute(body);
+          } finally {
+            this.callDepth--;
+          }
+          break;
         }
         case "input": {
           const answer = await this.host.input(
@@ -445,6 +500,18 @@ export class Engine {
               if (values.length >= 128) throw new SpellError("limit");
               if (Array.isArray(args[1])) throw new SpellError("list");
               values.push(args[1]);
+            } else if (s.name === "SET") {
+              count(args, 3, s.name);
+              const values = list(args[0]),
+                index = numeric(args[1]);
+              if (
+                !Number.isInteger(index) ||
+                index < 1 ||
+                index > values.length
+              )
+                throw new SpellError("index");
+              if (Array.isArray(args[2])) throw new SpellError("list");
+              values[index - 1] = args[2];
             } else if (s.name === "PRINT") {
               count(args, 1, s.name);
               this.host.print(String(args[0]));
@@ -472,23 +539,35 @@ export class Engine {
     this.host.reset();
     try {
       const body = parse(source);
-      const containsDo = (body: Stmt[]): boolean =>
+      // Visit every statement, including the ones inside blocks and SUBs.
+      const some = (body: Stmt[], test: (s: Stmt) => boolean): boolean =>
         body.some(
           (s) =>
-            s.type === "do" ||
-            ((s.type === "for" || s.type === "if") &&
-              (containsDo(s.body) ||
-                (s.type === "if" && containsDo(s.otherwise ?? [])))),
+            test(s) ||
+            ((s.type === "for" || s.type === "do" || s.type === "sub") &&
+              some(s.body, test)) ||
+            (s.type === "if" &&
+              (some(s.body, test) || some(s.otherwise ?? [], test))),
         );
-      this.longRunning = containsDo(body);
+      // SUBs are known before anything runs, so CALL can come first.
+      this.subs.clear();
+      this.callDepth = 0;
+      for (const s of body)
+        if (s.type === "sub") {
+          if (this.subs.has(s.name))
+            throw new SpellError("expected", { value: "a new name" }, s);
+          this.subs.set(s.name, s.body);
+        }
+      some(body, (s) => {
+        if (s.type === "callsub" && !this.subs.has(s.name)) {
+          this.loc = s;
+          unknown(s.spelling ?? s.name, [...this.subs.keys()]);
+        }
+        return false;
+      });
+      this.longRunning = some(body, (s) => s.type === "do");
       const containsFrame = (body: Stmt[]): boolean =>
-        body.some(
-          (s) =>
-            (s.type === "command" && s.name === "FRAME" && !s.object) ||
-            ((s.type === "for" || s.type === "if" || s.type === "do") &&
-              (containsFrame(s.body) ||
-                (s.type === "if" && containsFrame(s.otherwise ?? [])))),
-        );
+        some(body, (s) => s.type === "command" && s.name === "FRAME" && !s.object);
       this.frameMode = containsFrame(body);
       await this.execute(body);
       this.check();

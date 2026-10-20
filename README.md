@@ -11,7 +11,7 @@ The interpreter runs user BASIC in the browser. The API stores project source an
 ## What is included
 
 - Guest editing, running, local recovery and portable `.randusr` import/export.
-- A 256×192 pixel screen, sprites, animation, keyboard input and bounded cooperative BASIC runtime.
+- A 256×192 pixel screen, sprites, animation, keyboard input and bounded cooperative BASIC runtime, with `EXIT`, parameterless `SUB`/`CALL`, `SET` for list items and `MIN`/`MAX`/`INT`/`MOD`.
 - Sound Lab, SFX and pitched instruments, with Web Audio shared by the editor and BASIC runtime.
 - Shipped Examples built into the application.
 - Optional registered accounts for private projects, history, sharing and personal assets.

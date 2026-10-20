@@ -109,7 +109,7 @@ Russian terms follow the app: ЭКРАН, КОД, ▶ ЗАПУСК, ■ СТОП
 
 - Describe a feature that is not shipped as available. The Music Tracker is postponed: the only mention allowed is the "not available yet" page (`roadmap`), and the gate fails if "tracker" appears elsewhere. Games that are not shipped in the Examples drawer are not described either.
 - Contain screenshots that will go stale, copied artwork, or text from other books. All examples and the sample bundle are original.
-- Teach commands that do not exist (`ELSE IF`, `WHILE`, `MOD`, `EXIT`, one-line `IF`…). Where such a thing is missing, say so and show the workaround.
+- Teach commands that do not exist (`ELSE IF`, `WHILE`, `GOTO`, one-line `IF`…). Where such a thing is missing, say so and show the workaround.
 - Publish secrets, account details or private URLs.
 
 ## How the reader works (short)

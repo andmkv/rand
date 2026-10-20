@@ -37,7 +37,7 @@ npm run test:e2e
 
 ## Invariants
 
-- User BASIC is parsed into an AST and interpreted in the browser. Never add `eval`, `new Function`, generated JavaScript or host-global access.
+- User BASIC is parsed into an AST and interpreted in the browser. Never add `eval`, `new Function`, generated JavaScript or host-global access. `SUB` calls are capped at 32 levels and every statement inside still passes `checkpoint()`; `EXIT DO/FOR/SUB` only unwind one construct (see `docs/DECISIONS.md`).
 - RUN owns an abort signal. STOP/RESET cancel loops, waits, input, sprite work and audio. Keep queues, timers, listeners, resource counts and replay history bounded.
 - Guest mode works offline for editing, built-in content, local projects and `.randusr` import/export.
 - Authorization is enforced by server-side session identity and `shared/permissions.ts`. Never trust request-supplied roles or identity headers.

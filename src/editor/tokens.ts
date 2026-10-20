@@ -158,7 +158,7 @@ export function normalizeToken(raw: string): string {
  *
  * - partial selections expand to the whole token;
  * - `HERO.MOVE_BY` resolves to the member method;
- * - `END IF` resolves as one construct;
+ * - `END IF` and `END SUB` resolve as one construct;
  * - anything inside a string, comment, or spanning several tokens returns null.
  */
 export function resolveSelectionToken(
@@ -195,14 +195,18 @@ export function resolveSelectionToken(
   const first = overlapping[0];
   const last = overlapping[overlapping.length - 1];
 
-  // `END IF` is the only multi-word construct in the reference surface.
+  // `END IF` and `END SUB` are the multi-word constructs in the reference surface.
   if (
     first.kind === "word" &&
     last.kind === "word" &&
     first.text.toUpperCase() === "END" &&
-    last.text.toUpperCase() === "IF"
+    (last.text.toUpperCase() === "IF" || last.text.toUpperCase() === "SUB")
   )
-    return { token: "END IF", from: first.from, to: last.to };
+    return {
+      token: "END " + last.text.toUpperCase(),
+      from: first.from,
+      to: last.to,
+    };
 
   // `HERO.MOVE_BY` (or `CAT.X`) resolves to the trailing member token. Keep this
   // to an object + member pair; a whole expression ending in `.X` is not a request.

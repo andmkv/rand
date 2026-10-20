@@ -1,10 +1,10 @@
 ---
-summary: RND and RANDOM, SIN, COS, ABS and ROUND — the numeric functions.
+summary: RND and RANDOM, SIN, COS, ABS, ROUND, INT, MIN, MAX and MOD — the numeric functions.
 ---
 
 # Reference: numbers
 
-All of these are functions: they give back a value and must be used inside an expression (`X = ABS(Y)`), not alone on a line.
+All of these are functions: they give back a value and must be used inside an expression (`X = ABS(Y)`), not alone on a line. `MOD` can also be written between two numbers, like `+` or `*`.
 
 ### `RND` {#fn-rnd}
 
@@ -55,23 +55,73 @@ PRINT ROUND(-2.5)
 PRINT ROUND(3.6)
 ```
 
-The arguments of `SIN`, `COS`, `ABS` and `ROUND` must be numbers (`number` error otherwise) and each takes exactly one argument (`args` error otherwise).
+### `INT` {#fn-int}
 
-## Tricks with only these functions
+**Syntax:** `INT(x)` → the whole number at or below `x`.
 
-There is no `MOD` (remainder), `INT` (cut off the fraction) or `SQR` (square root). You can build what you need:
+The fraction is cut off **downwards**: `INT(3.9)` is 3, and `INT(-0.5)` is −1 (not 0). `ROUND` goes to the *nearest* whole number; `INT` always goes down.
+
+```basic id=r-int output="3|-1|5|4"
+PRINT INT(3.9)
+PRINT INT(-0.5)
+PRINT INT(5)
+PRINT INT(RND(40,49) / 10)
+```
+
+### `MIN` {#fn-min}
+
+**Syntax:** `MIN(a, b)` → the smaller of the two numbers.
+
+### `MAX` {#fn-max}
+
+**Syntax:** `MAX(a, b)` → the bigger of the two numbers.
+
+Both take exactly two numbers. Together they keep a value inside limits: `X = MAX(10, MIN(X, 246))` never lets `X` go below 10 or above 246.
+
+```basic id=r-min-max output="3|7|-2|246"
+PRINT MIN(3,7)
+PRINT MAX(3,7)
+PRINT MIN(-1,-2)
+X = 300
+PRINT MAX(10, MIN(X, 246))
+```
+
+### `MOD` {#fn-mod}
+
+**Syntax:** `a MOD b` · or `MOD(a, b)` → the remainder after dividing `a` by `b`.
+
+`7 MOD 3` is 1 because 7 is two threes and one left over. The result is never negative when `b` is positive, so `-1 MOD 8` is 7 (this keeps patterns going smoothly across zero). Fractions work too: `5.5 MOD 2` is 1.5. `MOD` by zero is the `zero` error. As an operator it binds like `*` and `/`: `2 + 7 MOD 4 * 2` is 8.
+
+Typical uses: `N MOD 2 = 0` asks "is `N` even?", and `FRAME_NUMBER MOD 10 = 0` is true "every 10th time".
+
+```basic id=r-mod output="1|1|7|true|8"
+PRINT 7 MOD 3
+PRINT MOD(7,3)
+PRINT -1 MOD 8
+PRINT 10 MOD 2 = 0
+PRINT 2 + 7 MOD 4 * 2
+```
+
+The arguments of all these functions must be numbers (`number` error otherwise). `SIN`, `COS`, `ABS`, `ROUND` and `INT` take exactly one argument; `MIN`, `MAX` and `MOD` take exactly two (`args` error otherwise).
+
+## Tricks with these functions
+
+There is no `SQR` (square root). You can build what you need from what exists:
 
 | You want | Write |
 | --- | --- |
-| is `N` even? | `N / 2 = ROUND(N / 2)` |
-| whole part of positive `X` | `ROUND(X - 0.5)` |
+| is `N` even? | `N MOD 2 = 0` |
+| whole part of `X` | `INT(X)` |
+| keep `X` between 10 and 246 | `MAX(10, MIN(X, 246))` |
+| wrap around: 0, 1, … 7, 0, 1, … | `N MOD 8` |
 | distance of a point from the centre | find it with sprites and `HIT`, or compare squared distances: `DX * DX + DY * DY < R * R` |
 | random choice from a list | `ITEM(LIST_NAME,RND(1,COUNT(LIST_NAME)))` |
 
-```basic id=r-tricks output="true|3|true"
+```basic id=r-tricks output="true|3|5|true"
 N = 10
-PRINT N / 2 = ROUND(N / 2)
-PRINT ROUND(3.7 - 0.5)
+PRINT N MOD 2 = 0
+PRINT INT(3.7)
+PRINT 13 MOD 8
 DX = 3
 DY = 4
 PRINT DX * DX + DY * DY < 26

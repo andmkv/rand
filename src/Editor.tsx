@@ -40,9 +40,9 @@ const language = StreamLanguage.define<{ indent: number }>({
   startState: () => ({ indent: 0 }),
   token(stream, state) {
     if (stream.sol()) {
-      if (/^\s*(NEXT\b|LOOP\b|END\s+IF\b)/i.test(stream.string))
+      if (/^\s*(NEXT\b|LOOP\b|END\s+(IF|SUB)\b)/i.test(stream.string))
         state.indent = Math.max(0, state.indent - 2);
-      else if (/^\s*(FOR|IF|DO)\b/i.test(stream.string)) state.indent += 2;
+      else if (/^\s*(FOR|IF|DO|SUB)\b/i.test(stream.string)) state.indent += 2;
     }
     if (stream.eatSpace()) return null;
     if (stream.match(/'.*|REM\b.*/i)) return "comment";
@@ -67,6 +67,9 @@ const language = StreamLanguage.define<{ indent: number }>({
         "IF",
         "THEN",
         "END",
+        "EXIT",
+        "SUB",
+        "CALL",
         "STEP",
         "TO",
         "LET",
@@ -88,7 +91,7 @@ const language = StreamLanguage.define<{ indent: number }>({
   indent(state, text) {
     return Math.max(
       0,
-      state.indent - (/^\s*(NEXT|LOOP|END IF|ELSE)/i.test(text) ? 2 : 0),
+      state.indent - (/^\s*(NEXT|LOOP|END IF|END SUB|ELSE)/i.test(text) ? 2 : 0),
     );
   },
 });
@@ -406,7 +409,8 @@ export function Editor({
           indentUnit.of("  "),
           indentOnInput(),
           language.data.of({
-            indentOnInput: /^\s*(NEXT\b|LOOP\b|END\s+IF\b|ELSE\b)/i,
+            indentOnInput:
+              /^\s*(NEXT\b|LOOP\b|END\s+(IF|SUB)\b|ELSE\b)/i,
           }),
           syntaxHighlighting(
             HighlightStyle.define([
@@ -443,6 +447,9 @@ export function Editor({
                     "LOOP",
                     "FOR",
                     "IF",
+                    "EXIT",
+                    "SUB",
+                    "CALL",
                     "INPUT",
                     "SPAWN",
                     "RND",
