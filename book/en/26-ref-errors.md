@@ -14,8 +14,8 @@ These appear as soon as you press RUN, before anything is drawn, because the mac
 | --- | --- | --- |
 | `token` | *I found "…" here. Try a number, name, or quoted word.* | A character that does not belong, such as `$`, `#`, `;`, `[`. |
 | `quote` | *This string needs a closing quote.* | A missing `"`. |
-| `expected` | *Try adding … here.* | A missing word or comma, such as `TO` in a `FOR`, `THEN` in an `IF`, or a new line after `THEN`. |
-| `block` | *This block needs …* | An `IF`, `FOR` or `DO` that is never closed (`END IF`, `NEXT x`, `LOOP`). |
+| `expected` | *Try adding … here.* | A missing word or comma, such as `TO` in a `FOR`, `THEN` in an `IF`, or a new line after `THEN`. Also an `EXIT DO`, `EXIT FOR` or `EXIT SUB` with no such block around it, and two `SUB`s with the same name. |
+| `block` | *This block needs …* | An `IF`, `FOR`, `DO` or `SUB` that is never closed (`END IF`, `NEXT x`, `LOOP`, `END SUB`). |
 | `limit` | *That is a lot of magic! …* | The program is too long, too deeply nested, or a string is too long (also see below). |
 
 ```basic id=e-token error=token
@@ -40,19 +40,19 @@ IF TRUE THEN
 
 | Code | Message | Usual cause and fix |
 | --- | --- | --- |
-| `unknown` | *I don't know a spell called …. Did you mean …?* | A typo in a command, method or property name. The suggestion is the closest real name. |
+| `unknown` | *I don't know a spell called …. Did you mean …?* | A typo in a command, method or property name, or a `CALL` of a `SUB` that does not exist. The suggestion is the closest real name. |
 | `variable` | *Give … a value first.* | A variable read before it was assigned. |
 | `number` | *This spell needs a finite number.* | A text or true/false where a number is needed (`"a" * 2`, `INK "red"`). |
 | `args` | *… needs N ingredients.* | The wrong number of arguments: `CIRCLE 1,2` has two, it needs three. |
 | `range` | *… is outside this spell's range.* | A value outside what the command accepts (`INK 9`, `WAIT 40`, `RND(5,1)`, `TEMPO 500`, a negative radius). |
-| `zero` | *Dividing by zero does not fit in this world.* | `x / 0`. |
+| `zero` | *Dividing by zero does not fit in this world.* | `x / 0` or `x MOD 0`. |
 | `step` | *STEP cannot be zero.* | `STEP 0` in a `FOR`. |
 | `functionStatement` | *… gives something back. Keep it with a name, like …* | A function (`ROUND`, `ABS`, `RND`…) used alone on a line instead of inside an expression. (A long form such as `SPAWN("cat",10,10)` alone on a line is reported earlier, as `expected`.) |
 | `object` | *This needs a living sprite. Try SPAWN first.* | A method on a destroyed sprite, or on something that is not a sprite. |
 | `sprite` | *Try one of these sprites: …* | `SPAWN` with an unknown name. The message lists the real ones. |
 | `sound` | *That sound is not in INVENTORY. …* | `SOUND` / `SFX` / an instrument alias that does not exist. |
 | `list` | *Use a flat LIST of numbers, words or sprites here.* | A non-list where a list is needed, or a list inside a list. |
-| `index` | *That item is outside the list. …* | `ITEM(list,n)` with `n` below 1 or above `COUNT(list)`. |
+| `index` | *That item is outside the list. …* | `ITEM(list,n)` or `SET list,n,value` with `n` below 1 or above `COUNT(list)`. |
 | `key` | *Try LEFT, RIGHT, UP, DOWN, SPACE, ENTER, or a letter/number key.* | `KEY("ESC")` or another unknown key name. |
 | `input` | *Please type a number for ….* | A letter typed where `INPUT` was expecting a number. |
 | `limit` | *That is a lot of magic! Try a smaller loop or fewer shapes and sounds.* | A limit was hit (see the table below). |
@@ -145,6 +145,7 @@ These are not caused by your program, but by opening or loading something.
 | String length | 2,000 characters | `limit` |
 | Name length | 64 characters | `limit` |
 | Nesting of blocks | 40 levels | `limit` |
+| `SUB`s calling each other | 32 deep | `limit` |
 | Expression depth | 80 | `limit` |
 | Statements per run (no `DO`) | 30,000 | `limit` |
 | Loop passes per run (no `DO`) | 10,000 | `limit` |

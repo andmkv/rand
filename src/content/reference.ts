@@ -41,6 +41,15 @@ const SYNTAX: Record<string, string> = {
   LIST: "LIST()",
   ITEM: "ITEM(list,index)",
   COUNT: "COUNT(list)",
+  SET: "SET list,index,value",
+  MIN: "MIN(a,b)",
+  MAX: "MAX(a,b)",
+  INT: "INT(number)",
+  MOD: "a MOD b · MOD(a,b)",
+  EXIT: "EXIT DO · EXIT FOR · EXIT SUB",
+  SUB: "SUB NAME … END SUB",
+  "END SUB": "SUB NAME … END SUB",
+  CALL: "CALL NAME",
   RND: "RND(min,max)",
   RANDOM: "RANDOM(min,max)",
   KEY: 'KEY("LEFT")',
@@ -80,6 +89,7 @@ const SYNTAX: Record<string, string> = {
 const COMMANDS: Record<string, string> = {
   FRAME: "frame",
   PUSH: "list-push-item-count",
+  SET: "set",
   SFX: "sfx",
   CLS: "cls",
   INK: "ink",
@@ -116,6 +126,10 @@ const FUNCTIONS: Record<string, string> = {
   LIST: "list-push-item-count",
   ITEM: "list-push-item-count",
   COUNT: "list-push-item-count",
+  MIN: "min-max",
+  MAX: "min-max",
+  INT: "int",
+  MOD: "mod",
 };
 
 const METHODS: Record<string, string> = {
@@ -155,6 +169,10 @@ const KEYWORDS: Record<string, string> = {
   OR: "and-or-not",
   NOT: "and-or-not",
   LET: "variables",
+  EXIT: "exit",
+  SUB: "sub-call",
+  CALL: "sub-call",
+  "END SUB": "sub-call",
 };
 
 const OPERATORS: Record<string, string> = {

@@ -112,7 +112,36 @@ LOOP
 Run this and press STOP when you have had enough. Stars keep appearing at random places.
 
 > [!WARNING]
-> There is no `EXIT` or `BREAK` in this language. A `DO … LOOP` can only end when you press STOP. A well-behaved forever-loop also contains a `WAIT` or a `FRAME` so that it hands time back to the browser (more on `FRAME` in [chapter 8](book:motion)).
+> A forever-loop should contain a `WAIT` or a `FRAME` so that it hands time back to the browser (more on `FRAME` in [chapter 8](book:motion)).
+
+## Leaving a loop early: `EXIT`
+
+A `DO … LOOP` ends when you press STOP — or when the program decides it is finished and runs `EXIT DO`. That line jumps out of the loop and the program carries on below `LOOP`:
+
+```basic id=c05-exit-do output="1|2|3|done"
+N = 0
+DO
+  N = N + 1
+  PRINT N
+  IF N = 3 THEN
+    EXIT DO
+  END IF
+LOOP
+PRINT "done"
+```
+
+`FOR` loops have the same trick, `EXIT FOR`, which leaves just the `FOR` it is in. It is handy when you were searching for something and have found it:
+
+```basic id=c05-exit-for output="7"
+FOR N = 1 TO 100
+  IF N * N > 40 THEN
+    PRINT N
+    EXIT FOR
+  END IF
+NEXT N
+```
+
+The loop would have counted to 100, but stops at 7, the first number whose square is bigger than 40.
 
 ## Safety rails: how the machine protects you
 

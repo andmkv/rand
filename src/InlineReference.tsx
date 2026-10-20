@@ -42,6 +42,9 @@ const CODE_WORDS = new Set([
   "TO",
   "LET",
   "ELSE",
+  "EXIT",
+  "SUB",
+  "CALL",
   "REM",
 ]);
 

@@ -29,7 +29,39 @@ PRINT ITEM(COLORS,4)
 > [!WARNING]
 > Positions start at **1**, not 0. The first item is `ITEM(list,1)` and the last is `ITEM(list,COUNT(list))`. Asking for item 0 or one past the end gives the error *That item is outside the list.*
 
-A list can hold numbers, strings, `TRUE`/`FALSE` and sprites, and the same list can mix them. A list **cannot hold another list**, and it can hold at most **128 items**. There is no command to remove an item; to start again, make a new list.
+A list can hold numbers, strings, `TRUE`/`FALSE` and sprites, and the same list can mix them. A list **cannot hold another list**, and it can hold at most **128 items**. There is no command to remove an item; to start again, make a new list. You *can* replace an item that is already there, as the next section shows.
+
+## Changing an item: `SET`
+
+`SET list,n,value` puts a new value into position *n*. The old value is gone and the list keeps its length. With `SET` a list works like a row of numbered boxes you can both read and write:
+
+```basic id=c09-set output="0|5|3"
+SCORES = LIST(0,0,0)
+PRINT ITEM(SCORES,1)
+SET SCORES,1,5
+PRINT ITEM(SCORES,1)
+PRINT COUNT(SCORES)
+```
+
+`SET` never makes a list longer: asking for a position that is not there gives *That item is outside the list.* To grow a list, use `PUSH`.
+
+Here is a real use: roll a die 60 times and keep a tally for each face. Box *n* of `TALLY` counts how often face *n* came up. The `SET` line reads the old count with `ITEM`, adds one, and writes it back:
+
+```basic id=c09-tally output="6|60"
+TALLY = LIST(0,0,0,0,0,0)
+FOR ROLL = 1 TO 60
+  FACE = RND(1,6)
+  SET TALLY,FACE,ITEM(TALLY,FACE) + 1
+NEXT ROLL
+TOTAL = 0
+FOR F = 1 TO COUNT(TALLY)
+  TOTAL = TOTAL + ITEM(TALLY,F)
+NEXT F
+PRINT COUNT(TALLY)
+PRINT TOTAL
+```
+
+Six boxes, and together they hold all 60 rolls. Try drawing a bar for each box with `FILLBOX` and see which face wins.
 
 ## Visiting every item
 

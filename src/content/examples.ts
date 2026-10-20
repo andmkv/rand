@@ -34,20 +34,26 @@ SOUND "coin"`,
     description: "A pocket-sized celebration, with a different sky every time.",
     endless: true,
     tweak: "Change WAIT 0.5 to WAIT 0.1 for a faster celebration.",
-    code: `DO
-  X = RND(30,225)
-  Y = RND(30,120)
-  SIZE = RND(12,32)
-  INK RND(1,7)
+    code: `SUB LAUNCH
   FOR H = 180 TO Y STEP -6
     PLOT X,H
     WAIT 0.01
   NEXT H
+END SUB
+SUB BURST
   FOR A = 0 TO 6.3 STEP 0.4
     LINE X,Y,X+COS(A)*SIZE,Y+SIN(A)*SIZE
   NEXT A
   SOUND "explosion"
   WAIT 0.5
+END SUB
+DO
+  X = RND(30,225)
+  Y = RND(30,120)
+  SIZE = RND(12,32)
+  INK RND(1,7)
+  CALL LAUNCH
+  CALL BURST
 LOOP`,
   },
   {
@@ -140,10 +146,9 @@ FOR TRY = 1 TO 3
   IF GUESS = SECRET THEN
     TEXT 50,90,"YOU FOUND IT!"
     SOUND "coin"
+    EXIT FOR
   END IF
-  IF GUESS <> SECRET THEN
-    PRINT "Try again!"
-  END IF
+  PRINT "Try again!"
 NEXT TRY
 PRINT "The number was " + SECRET`,
   },

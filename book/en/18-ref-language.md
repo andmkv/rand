@@ -1,5 +1,5 @@
 ---
-summary: The grammar of the language — programs, names, values, operators and precedence — and every control keyword (FOR, IF, DO, LET, REM, AND, OR, NOT).
+summary: The grammar of the language — programs, names, values, operators and precedence — and every control keyword (FOR, IF, DO, EXIT, SUB, CALL, LET, REM, AND, OR, NOT).
 ---
 
 # Reference: the language
@@ -20,15 +20,17 @@ A statement is one of:
 | command | `CIRCLE 128,96,20` |
 | method call on a sprite | `CAT.MOVE_BY 2,0` |
 | `INPUT` | `INPUT "Name?", NAME` |
-| a block | `FOR … NEXT`, `IF … END IF`, `DO … LOOP` |
+| a block | `FOR … NEXT`, `IF … END IF`, `DO … LOOP`, `SUB … END SUB` |
+| leaving a loop or a SUB | `EXIT DO`, `EXIT FOR`, `EXIT SUB` |
+| using a SUB | `CALL DRAW_TREE` |
 
 Blank lines and indentation are ignored. A function that gives back a value (`SPAWN`, `RND`…) cannot stand alone as a statement; its value must go somewhere: `CAT = SPAWN("cat",10,10)`.
 
 ## Names
 
-A **name** (of a variable) starts with a letter (from any alphabet) or `_`, then letters, combining marks, digits or `_`; at most **64 characters**. Names are **not case-sensitive**: `Score`, `SCORE` and `score` are one variable. Variables need no declaration: assigning creates them. Reading a variable that has no value gives the `variable` error. **All variables are emptied at the start of every RUN.** Variables are global; there are no procedures or local variables.
+A **name** (of a variable) starts with a letter (from any alphabet) or `_`, then letters, combining marks, digits or `_`; at most **64 characters**. Names are **not case-sensitive**: `Score`, `SCORE` and `score` are one variable. Variables need no declaration: assigning creates them. Reading a variable that has no value gives the `variable` error. **All variables are emptied at the start of every RUN.** Variables are global: a `SUB` sees and changes the very same variables as the rest of the program, and there are no local variables.
 
-Avoid using words of the language as variable names (`IF`, `FOR`, `NEXT`, `TO`, `STEP`, `THEN`, `ELSE`, `END`, `DO`, `LOOP`, `AND`, `OR`, `NOT`, `LET`, `TRUE`, `FALSE`, `INPUT`, `REM`). Names of commands and functions (such as `SIZE` or `TEXT`) happen to work as variable names, but are confusing.
+Avoid using words of the language as variable names (`IF`, `FOR`, `NEXT`, `TO`, `STEP`, `THEN`, `ELSE`, `END`, `DO`, `LOOP`, `EXIT`, `SUB`, `CALL`, `MOD`, `AND`, `OR`, `NOT`, `LET`, `TRUE`, `FALSE`, `INPUT`, `REM`). Names of commands and functions (such as `SIZE` or `TEXT`) happen to work as variable names, but are confusing.
 
 ## Values
 
@@ -53,7 +55,7 @@ From the loosest to the tightest binding:
 | (prefix) | `NOT` — applies to the comparison after it |
 | 3 | `=` `<>` `<` `>` `<=` `>=` |
 | 4 | `+` `-` |
-| 5 | `*` `/` |
+| 5 | `*` `/` `MOD` |
 | (prefix) | unary `-` and `+` — tightest |
 
 Operators of the same level group from the left. Brackets `( )` override everything. Comparisons do not chain: `1 < 2 < 3` is `(1 < 2) < 3`, which is an error because `TRUE` is not a number.
@@ -115,7 +117,7 @@ NEXT J
 
 **Syntax:** `DO` … `LOOP`
 
-Repeats its body forever. There is no way to leave except STOP (or an error). A program that contains `DO` anywhere is treated as long-running: the total-statement, total-iteration and two-minute limits do not apply to it. Put a `FRAME` or `WAIT` inside so the loop yields time.
+Repeats its body until you press STOP, an error happens, or the body runs [`EXIT DO`](#kw-exit). A program that contains `DO` anywhere is treated as long-running: the total-statement, total-iteration and two-minute limits do not apply to it. Put a `FRAME` or `WAIT` inside so the loop yields time.
 
 ```basic id=r-do endless wait=2 vars="N>10"
 N = 0
@@ -123,6 +125,87 @@ DO
   N = N + 1
   WAIT 0.05
 LOOP
+```
+
+### `EXIT` {#kw-exit}
+
+**Syntax:** `EXIT DO` · `EXIT FOR` · `EXIT SUB`
+
+Leaves a block early. `EXIT DO` jumps out of the nearest `DO … LOOP` around it, `EXIT FOR` out of the nearest `FOR … NEXT` around it, and `EXIT SUB` ends the `SUB` it is in. The program carries on with the line after the block (after `EXIT SUB`: the line after the `CALL`). `EXIT DO` also works from inside a `FOR` that sits inside the `DO`, and the other way round.
+
+The block must exist: an `EXIT DO` with no `DO … LOOP` around it (inside the same `SUB`, or in the main program) is an error before anything runs, and so are `EXIT FOR` with no `FOR` and `EXIT SUB` outside a `SUB`. A `SUB` cannot be left through the loops of the code that called it.
+
+After `EXIT DO` the program is still treated as long-running, because it contains a `DO`.
+
+```basic id=r-exit-do output="1|2|3|done"
+N = 0
+DO
+  N = N + 1
+  PRINT N
+  IF N = 3 THEN
+    EXIT DO
+  END IF
+LOOP
+PRINT "done"
+```
+
+```basic id=r-exit-for output="11|21"
+FOR A = 1 TO 2
+  FOR B = 1 TO 5
+    IF B = 2 THEN
+      EXIT FOR
+    END IF
+    PRINT A * 10 + B
+  NEXT B
+NEXT A
+```
+
+The inner `EXIT FOR` only leaves the inner loop; the outer `FOR A` carries on.
+
+## Subroutines
+
+### `SUB` `CALL` `END SUB` {#kw-sub}
+
+**Syntax:**
+
+```text
+SUB NAME
+  statements
+END SUB
+
+CALL NAME
+```
+
+A `SUB` is a piece of the program with a name. Nothing happens when the machine reads it; the statements run each time a `CALL NAME` line is reached, and then the program carries on after that `CALL`.
+
+- A `SUB` is written at the **top level** of the program, not inside a `FOR`, `IF`, `DO` or another `SUB`. It can stand before or after the `CALL` that uses it.
+- A name follows the rules of variable names, and a `SUB` name and a variable of the same name do not disturb each other. Two `SUB`s with the same name are an error.
+- A `SUB` has **no ingredients** and gives nothing back. It shares all variables with the rest of the program: to give it something, set a variable first; to get something out, read a variable afterwards.
+- `EXIT SUB` ends the `SUB` early. A `SUB` may `CALL` another `SUB` or even itself, up to **32** calls inside each other; a deeper chain is the `limit` error ("That is a lot of magic!").
+- A `CALL` of a name that no `SUB` has is an error before anything runs, with a "Did you mean …?" hint.
+- A `SUB` that contains `FRAME`, `DO` or `WAIT` behaves like the same lines written in the main program: a program with a `DO` anywhere, even inside a `SUB`, is long-running.
+
+```basic id=r-sub output="5|10|done"
+SCORE = 0
+SUB SCORED
+  SCORE = SCORE + 5
+  PRINT SCORE
+END SUB
+CALL SCORED
+CALL SCORED
+PRINT "done"
+```
+
+```basic id=r-sub-exit output="start|end"
+SUB CHECK
+  PRINT "start"
+  IF TRUE THEN
+    EXIT SUB
+  END IF
+  PRINT "never printed"
+END SUB
+CALL CHECK
+PRINT "end"
 ```
 
 ## Decisions
@@ -139,7 +222,7 @@ IF condition THEN
 END IF
 ```
 
-`THEN` must be the last thing on its line and the body starts on the next line; there is no one-line `IF`. `END IF` is two words. There is no `ELSEIF`; nest an `IF` inside `ELSE`. Blocks may be nested 40 deep. `END` is only valid as the first half of `END IF`; on its own it is an error, because a program cannot be ended early.
+`THEN` must be the last thing on its line and the body starts on the next line; there is no one-line `IF`. `END IF` is two words. There is no `ELSEIF`; nest an `IF` inside `ELSE`. Blocks may be nested 40 deep. `END` is only valid as the first half of `END IF` or `END SUB`; on its own it is an error, because a program cannot be ended early.
 
 ```basic id=r-if output="B"
 SCORE = 70

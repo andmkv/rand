@@ -2,6 +2,11 @@
 
 User-facing changes are recorded here. This source snapshot is based on the production release `84bb1e71484861502766501782df82738f81a320`; it is not itself a deployment or a public release.
 
+## Unreleased — structured programming and public registration
+
+- BASIC: `EXIT DO` / `EXIT FOR` / `EXIT SUB`, parameterless `SUB name … END SUB` with `CALL name` (top level only, up to 32 calls deep), `SET list,index,value`, and `MIN`, `MAX`, `INT` and `MOD` (operator and function). Programs that used these words as variable names keep working. Editor highlighting and autocomplete, the inline reference, the Spellbook (seven translations) and the Handbook (English and Russian) cover them; the FIREWORKS, NUMBER WIZARD and ALIEN ATTACK examples use them where it helps.
+- Privacy Policy and Terms texts for the official instance (`privacy-2026-1`, `terms-2026-1`) are bundled in `src/LegalText.tsx` and shown at `/privacy` and `/terms` only when the configured policy version matches; other instances keep linking to their own documents. Registration stays closed unless `PUBLIC_REGISTRATION_ENABLED=true`.
+
 ## 0.1.1 — fonts
 
 - SCREEN (in-game) text now uses the custom 8×8 RandUSR bitmap font from `graphics/RandUSRfont.png`, with an explicit cell→character table covering Latin, digits, punctuation, Russian/Ukrainian/Serbian Cyrillic, Serbian Latin and Western European accents; Japanese and other missing characters fall back to the previous atlas.

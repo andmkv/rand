@@ -61,12 +61,15 @@ for (const { id } of locales.filter((locale) => locale.id !== "en")) {
       world.ask = async () => "3";
       engine.wait = async () => engine.check();
       let frames = 0;
-      if (/^\s*DO\s*$/m.test(entry.code))
+      // A DO loop runs until STOP, unless the program can EXIT DO by itself.
+      const endless =
+        /^\s*DO\s*$/m.test(entry.code) && !/\bEXIT\s+DO\b/i.test(entry.code);
+      if (endless)
         engine.yieldFrame = async () => {
           if (++frames >= 8) engine.stop();
           engine.check();
         };
-      if (/^\s*DO\s*$/m.test(entry.code))
+      if (endless)
         await expect(engine.run(entry.code)).rejects.toMatchObject({
           code: "stopped",
         });

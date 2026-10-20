@@ -59,17 +59,13 @@ The game has a single bullet sprite that is hidden when not in use. `SHOT.VISIBL
 
 ### A grid from a list
 
-Ten aliens live in a list. Each frame, every alien is re-positioned from two shared numbers, `WAVE_X` and `WAVE_Y`, plus its own column and row. Moving the whole formation means changing just those two numbers:
+Ten aliens live in a list. Each frame, every alien is re-positioned from two shared numbers, `WAVE_X` and `WAVE_Y`, plus its own column and row. Moving the whole formation means changing just those two numbers. Two small tools pick the place in the grid: `(N-1) MOD 5` is the remainder after dividing by 5, so it counts 0, 1, 2, 3, 4 and starts again, and `INT((N-1)/5)` cuts off the fraction, so it is 0 for the first five aliens and 1 for the next five:
 
 ```basic id=c14-alien-grid fragment quote=alien-attack
     FOR N = 1 TO COUNT(ALIENS)
       ALIEN = ITEM(ALIENS,N)
-      COLUMN = N-1
-      ROW = 0
-      IF N > 5 THEN
-        COLUMN = N-6
-        ROW = 1
-      END IF
+      COLUMN = (N-1) MOD 5
+      ROW = INT((N-1)/5)
       ALIEN.MOVE WAVE_X+COLUMN*38,WAVE_Y+ROW*26
       IF HIT(SHOT,ALIEN) THEN
         ALIEN.HIDE

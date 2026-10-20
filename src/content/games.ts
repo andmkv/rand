@@ -61,12 +61,8 @@ DO
     END IF
     FOR N = 1 TO COUNT(ALIENS)
       ALIEN = ITEM(ALIENS,N)
-      COLUMN = N-1
-      ROW = 0
-      IF N > 5 THEN
-        COLUMN = N-6
-        ROW = 1
-      END IF
+      COLUMN = (N-1) MOD 5
+      ROW = INT((N-1)/5)
       ALIEN.MOVE WAVE_X+COLUMN*38,WAVE_Y+ROW*26
       IF HIT(SHOT,ALIEN) THEN
         ALIEN.HIDE

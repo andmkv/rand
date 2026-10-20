@@ -31,7 +31,7 @@ describe("published content", () => {
   });
   it.each(spells)("runs Spellbook: $name", async (s) => {
     const { engine } = setup();
-    if (/^DO$/m.test(s.code)) {
+    if (/^DO$/m.test(s.code) && !/\bEXIT\s+DO\b/i.test(s.code)) {
       let frames = 0;
       engine.yieldFrame = async () => {
         if (++frames >= 8) engine.stop();

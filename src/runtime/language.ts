@@ -39,6 +39,9 @@ export type Stmt = Loc &
       }
     | { type: "if"; condition: Expr; body: Stmt[]; otherwise?: Stmt[] }
     | { type: "do"; body: Stmt[] }
+    | { type: "exit"; kind: "DO" | "FOR" | "SUB" }
+    | { type: "sub"; name: string; body: Stmt[] }
+    | { type: "callsub"; name: string }
     | { type: "input"; prompt: Expr; name: string }
   );
 export function lex(source: string): Token[] {
@@ -98,6 +101,8 @@ export function parse(source: string): Stmt[] {
   const tokens = lex(source);
   let p = 0,
     depth = 0;
+  // What we are inside right now ("FOR", "DO", "SUB"), innermost last.
+  const inside: string[] = [];
   const at = () =>
     tokens[p] ??
     ({
@@ -171,8 +176,12 @@ export function parse(source: string): Stmt[] {
       "-": 4,
       "*": 5,
       "/": 5,
+      MOD: 5,
     };
-    while ((precedence[at().value] ?? 0) > min) {
+    // Only symbols and words are operators: a quoted "MOD" is just text.
+    const power = (t: Token) =>
+      t.kind === "symbol" || t.kind === "name" ? (precedence[t.value] ?? 0) : 0;
+    while (power(at()) > min) {
       const op = take();
       left = {
         ...op,
@@ -211,7 +220,9 @@ export function parse(source: string): Stmt[] {
           ? (take(), expr())
           : { ...loc, type: "literal" as const, value: 1 };
         need("\n");
+        inside.push("FOR");
         const body = block("NEXT", nesting + 1);
+        inside.pop();
         if (!is("NEXT"))
           throw new SpellError("block", { value: "NEXT " + variable }, loc);
         take();
@@ -228,7 +239,9 @@ export function parse(source: string): Stmt[] {
         });
       } else if (cmd === "DO") {
         need("\n");
+        inside.push("DO");
         const body = block("LOOP", nesting + 1);
+        inside.pop();
         need("LOOP");
         out.push({ ...loc, type: "do", body });
       } else if (cmd === "IF") {
@@ -246,6 +259,51 @@ export function parse(source: string): Stmt[] {
         take();
         need("IF");
         out.push({ ...loc, type: "if", condition, body, otherwise });
+      } else if (cmd === "EXIT" && !is("=")) {
+        const kind = name();
+        if (kind !== "DO" && kind !== "FOR" && kind !== "SUB")
+          throw new SpellError("expected", { value: "DO, FOR or SUB" }, loc);
+        // EXIT DO / EXIT FOR must sit inside such a loop of the same SUB (or
+        // of the main program); EXIT SUB must sit inside a SUB.
+        let found = false;
+        for (let i = inside.length - 1; i >= 0 && !found; i--) {
+          if (inside[i] === kind) found = true;
+          else if (inside[i] === "SUB") break;
+        }
+        if (!found)
+          throw new SpellError(
+            "expected",
+            {
+              value:
+                kind === "DO"
+                  ? "DO … LOOP around this"
+                  : kind === "FOR"
+                    ? "FOR … NEXT around this"
+                    : "SUB … END SUB around this",
+            },
+            loc,
+          );
+        out.push({ ...loc, type: "exit", kind });
+      } else if (cmd === "SUB" && !is("=")) {
+        // SUBs live at the top of the program, not inside loops or IFs.
+        if (nesting !== 0) throw new SpellError("token", { value: "SUB" }, loc);
+        const subName = name();
+        need("\n");
+        inside.push("SUB");
+        const body = block("END SUB", nesting + 1);
+        inside.pop();
+        if (!is("END")) throw new SpellError("block", { value: "END SUB" }, loc);
+        take();
+        need("SUB");
+        out.push({ ...loc, type: "sub", name: subName, body });
+      } else if (cmd === "CALL" && !is("=")) {
+        const spelled = at();
+        out.push({
+          ...loc,
+          type: "callsub",
+          name: name(),
+          spelling: spelled.spelling,
+        });
       } else if (cmd === "INPUT") {
         const prompt = expr();
         need(",");
