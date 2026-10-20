@@ -13,7 +13,7 @@
   overflow-y: auto;
   background: var(--b-bg);
   color: var(--b-text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  font-family: "Victor Mono", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", DotGothic16, monospace;
   font-size: 18px;
   line-height: 1.65;
   scroll-padding-top: 76px;
@@ -87,7 +87,7 @@
   border-bottom: 1px solid var(--b-edge);
 }
 .book-header .brand {
-  font-family: Handjet, DotGothic16, monospace;
+  font-family: "Victor Mono", DotGothic16, monospace;
   font-size: 30px;
   line-height: 1.1;
   color: var(--b-text);
@@ -292,7 +292,7 @@
   margin: 0.25em 0;
 }
 .chapter code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-family: "Victor Mono", DotGothic16, monospace;
   font-size: 0.88em;
   background: #2a3150;
   padding: 0.1em 0.35em;
@@ -369,7 +369,7 @@
   padding: 12px 14px;
   overflow-x: auto;
   tab-size: 2;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-family: "Victor Mono", DotGothic16, monospace;
   font-size: 15px;
   line-height: 1.55;
   color: #e8ebf8;

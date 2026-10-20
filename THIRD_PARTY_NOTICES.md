@@ -21,6 +21,7 @@ Direct development dependencies are `@playwright/test` and `typescript` (Apache-
 ## Fonts and pixel font atlas
 
 - `public/fonts/Handjet.ttf` and the derived pixel font atlas include [Handjet](https://github.com/google/fonts/tree/main/ofl/handjet), distributed under the SIL Open Font License 1.1. The full notice is in `public/fonts/Handjet-OFL.txt`.
+- The web interface loads [Victor Mono](https://fonts.google.com/specimen/Victor+Mono) from Google Fonts at runtime (SIL Open Font License 1.1); it is not bundled in this repository.
 - `public/fonts/DotGothic16-Regular.ttf` and the derived Japanese atlas include [DotGothic16](https://github.com/google/fonts/tree/main/ofl/dotgothic16), distributed under the SIL Open Font License 1.1. The full notice is in `public/fonts/DotGothic16-OFL.txt`.
 - See [asset notes](docs/ASSETS.md) for the atlas-generation provenance.
 

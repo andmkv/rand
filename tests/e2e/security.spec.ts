@@ -40,7 +40,7 @@ test("compiled CSP permits the coding toy, fonts, audio and examples without scr
   expect(
     await page.evaluate(() => sessionStorage.getItem("randusr-usage-choice")),
   ).toBeNull();
-  expect(await page.evaluate(() => document.fonts.check("24px Handjet"))).toBe(
+  expect(await page.evaluate(() => document.fonts.check('18px "Victor Mono"'))).toBe(
     true,
   );
   expect(await page.evaluate(() => (window as any).cspViolations)).toEqual([]);

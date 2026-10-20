@@ -3,15 +3,9 @@
   src: url("/fonts/DotGothic16-Regular.ttf") format("truetype");
   font-display: swap;
 }
-@font-face {
-  font-family: Handjet;
-  src: url("/fonts/Handjet.ttf") format("truetype");
-  font-weight: 100 900;
-  font-display: swap;
-}
 :root {
-  font-family: Handjet, DotGothic16, monospace;
-  font-size: 24px;
+  font-family: "Victor Mono", DotGothic16, monospace;
+  font-size: 18px;
   color: #ececf5;
   background: #171b2b;
   font-synthesis: none;
@@ -77,18 +71,18 @@ header {
   padding: 8px 0;
 }
 h1 {
-  font-size: 32px;
+  font-size: 24px;
   margin: 0;
   white-space: nowrap;
 }
 h2 {
-  font-size: 23px;
+  font-size: 17px;
   letter-spacing: 1px;
   margin: 0;
   color: var(--muted);
 }
 h3 {
-  font-size: 26px;
+  font-size: 20px;
   margin: 0;
   color: var(--yellow);
 }
@@ -180,13 +174,14 @@ nav {
   border: 1px solid var(--edge);
 }
 .cm-scroller {
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important;
+  font-family: "Victor Mono", DotGothic16, monospace !important;
+  font-variant-ligatures: none;
 }
 .cm-gutters {
-  font-family: Handjet, DotGothic16, monospace;
+  font-family: "Victor Mono", DotGothic16, monospace;
 }
 .status {
-  font-size: 20px;
+  font-size: 15px;
   color: var(--mint);
   flex-shrink: 0;
   max-height: 60px;
@@ -194,7 +189,7 @@ nav {
   overflow-wrap: anywhere;
 }
 .status button {
-  font-size: 20px;
+  font-size: 15px;
   text-align: left;
   padding: 2px 6px;
 }
@@ -208,7 +203,7 @@ nav {
   color: var(--mint);
 }
 footer {
-  font-size: 18px;
+  font-size: 14px;
   color: var(--muted);
   flex-shrink: 0;
 }
@@ -227,7 +222,7 @@ footer {
   writing-mode: vertical-rl;
   padding: 12px 5px;
   z-index: 40;
-  font-size: 23px;
+  font-size: 17px;
   letter-spacing: 1px;
 }
 .drawer {
@@ -281,12 +276,11 @@ footer {
 }
 .card code {
   overflow-wrap: anywhere;
-  font-family: Handjet, DotGothic16, monospace;
+  font-family: "Victor Mono", DotGothic16, monospace;
 }
 .card pre {
   font:
-    17px/1.5 ui-monospace,
-    monospace;
+    17px/1.5 "Victor Mono", DotGothic16, monospace;
   color: var(--yellow);
   background: #121726;
   padding: 12px;
@@ -297,10 +291,10 @@ footer {
 }
 .eyebrow {
   color: var(--mint);
-  font-size: 20px;
+  font-size: 15px;
 }
 .small {
-  font-size: 20px;
+  font-size: 15px;
 }
 @media (max-width: 1000px) {
   .app {
@@ -311,14 +305,14 @@ footer {
   }
   header button,
   header select {
-    font-size: 20px;
+    font-size: 15px;
   }
   h1 {
-    font-size: 27px;
+    font-size: 20px;
   }
   .runtime-controls button {
     padding: 5px 7px;
-    font-size: 21px;
+    font-size: 16px;
   }
   .cm-editor {
     font-size: 17px;
@@ -359,7 +353,7 @@ canvas:focus-visible {
 }
 .workspace-controls {
   margin: 0;
-  font-size: 19px;
+  font-size: 14px;
   max-height: 72px;
   overflow: auto;
   flex-shrink: 0;
@@ -380,14 +374,14 @@ canvas:focus-visible {
 .drawer-handle {
   max-height: 31vh;
   padding: 9px 5px;
-  font-size: 21px;
+  font-size: 16px;
 }
 :lang(ja) .story p {
   line-height: 1.7;
 }
 @media (max-width: 1000px) {
   .runtime-controls button {
-    font-size: 19px;
+    font-size: 14px;
     padding: 5px 6px;
   }
 }
@@ -412,7 +406,7 @@ canvas:focus-visible {
 .account-dialog form, .account-dialog label { display: flex; flex-direction: column; gap: 8px; }
 .account-dialog form { gap: 16px; }
 .account-dialog input, .account-dialog select { width: 100%; min-width: 0; }
-.account-dialog input[type="email"], .account-dialog input[type="password"] { font: 18px/1.5 system-ui, sans-serif; padding: 8px; }
+.account-dialog input[type="email"], .account-dialog input[type="password"] { font: 16px/1.5 "Victor Mono", DotGothic16, monospace; padding: 8px; }
 .account-dialog small, .account-email { color: var(--muted); overflow-wrap: anywhere; }
 .account-dialog nav { margin-top: 18px; }
 .account-dialog .checkbox-label { display: block; }
@@ -431,14 +425,14 @@ canvas:focus-visible {
 .cloud-status { color: var(--mint); font-size: .85rem; }
 .cloud-recovery { background: var(--panel); border: 1px solid var(--yellow); padding: 8px; max-width: 680px; }
 .cloud-recovery p { margin: 0 0 6px; }
-.revision-source { font: 15px/1.5 monospace; white-space: pre-wrap; overflow-wrap: anywhere; background: #171b2b; padding: 14px; max-height: 45dvh; overflow: auto; }
+.revision-source { font: 14px/1.5 "Victor Mono", DotGothic16, monospace; white-space: pre-wrap; overflow-wrap: anywhere; background: #171b2b; padding: 14px; max-height: 45dvh; overflow: auto; }
 .revision-summary { display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: .7rem; }
 .shared-viewer .mode-controls, .shared-viewer .edit-only, .shared-viewer .drawer-handles { display: none; }
 .viewer-info { overflow: auto; padding: 10px 14px; background: var(--panel); border: 1px solid var(--edge); min-height: 0; }
-.viewer-info h2 { color: var(--yellow); font-size: 28px; margin: 0 0 4px; overflow-wrap: anywhere; }
-.viewer-info p { margin: 0 0 6px; overflow-wrap: anywhere; font-size: 20px; line-height: 1.3; }
+.viewer-info h2 { color: var(--yellow); font-size: 21px; margin: 0 0 4px; overflow-wrap: anywhere; }
+.viewer-info p { margin: 0 0 6px; overflow-wrap: anywhere; font-size: 15px; line-height: 1.3; }
 .viewer-info .actions { margin-top: 8px; }
-.viewer-info .actions button.primary, .viewer-info .actions a.button-link.primary-link { font-size: 22px; padding: 7px 16px; }
+.viewer-info .actions button.primary, .viewer-info .actions a.button-link.primary-link { font-size: 17px; padding: 7px 16px; }
 .public-loading { padding: 32px; }
 .account-dialog textarea { width: 100%; min-height: 90px; font: inherit; color: inherit; background: #171b2b; border: 1px solid var(--edge); padding: 8px; }
 a { color: var(--mint); }
@@ -476,7 +470,7 @@ a { color: var(--mint); }
 .class-card, .class-code { padding: 16px; border: 1px solid var(--edge); background: var(--panel); overflow-wrap: anywhere; }
 .class-card h3 { margin-top: 0; }
 .class-code { max-width: 560px; }
-.class-code input { font: 1.5rem monospace; letter-spacing: .15em; width: 100%; }
+.class-code input { font: 1.5rem "Victor Mono", monospace; letter-spacing: .15em; width: 100%; }
 .roster { list-style: none; padding: 0; max-width: 700px; }
 .roster li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--edge); }
 .roster span { overflow-wrap: anywhere; min-width: 0; }
@@ -513,17 +507,17 @@ button.danger { border-color: #f2a0a8; color: #ffd6df; }
   overflow-wrap: anywhere;
 }
 .admin-invitations .invite-head { display: grid; gap: 6px; }
-.admin-invitations .invite-head h2 { margin: 0; color: var(--mint); font-size: 24px; letter-spacing: .5px; }
-.admin-invitations .invite-head p { margin: 0; color: var(--muted); font-size: 20px; line-height: 1.35; }
+.admin-invitations .invite-head h2 { margin: 0; color: var(--mint); font-size: 18px; letter-spacing: .5px; }
+.admin-invitations .invite-head p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.35; }
 .admin-invitations .invite-form {
   display: grid; gap: 12px; padding: 16px;
   background: #1c2135; border: 1px solid var(--edge);
 }
-.admin-invitations .invite-field { display: grid; gap: 6px; font-size: 20px; min-width: 0; }
-.admin-invitations .invite-field input { width: 100%; min-width: 0; font-size: 20px; padding: 8px 10px; }
+.admin-invitations .invite-field { display: grid; gap: 6px; font-size: 15px; min-width: 0; }
+.admin-invitations .invite-field input { width: 100%; min-width: 0; font-size: 15px; padding: 8px 10px; }
 .admin-invitations .invite-adult {
   display: flex; align-items: flex-start; gap: 10px;
-  font-size: 19px; line-height: 1.3; cursor: pointer;
+  font-size: 14px; line-height: 1.3; cursor: pointer;
 }
 .admin-invitations .invite-adult input {
   flex: none; appearance: none; -webkit-appearance: none;
@@ -542,13 +536,13 @@ button.danger { border-color: #f2a0a8; color: #ffd6df; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 10px 16px; flex-wrap: wrap;
 }
-.admin-invitations .invite-note { flex: 1 1 240px; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.35; }
+.admin-invitations .invite-note { flex: 1 1 240px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
 .admin-invitations .invite-form-foot button { flex: none; }
-.admin-invitations .invite-feedback { margin: 0; padding: 10px 12px; border: 1px solid var(--edge); font-size: 19px; line-height: 1.35; }
+.admin-invitations .invite-feedback { margin: 0; padding: 10px 12px; border: 1px solid var(--edge); font-size: 14px; line-height: 1.35; }
 .admin-invitations .invite-error { color: #ffd6df; background: #3a2430; border-color: #f2a0a8; }
 .admin-invitations .invite-notice { color: var(--mint); background: #1e3630; border-color: #76b79b; }
 .admin-invitations .invite-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
-.admin-invitations .invite-tabs button { font-size: 18px; padding: 5px 12px; background: #1c2135; border-color: var(--edge); }
+.admin-invitations .invite-tabs button { font-size: 14px; padding: 5px 12px; background: #1c2135; border-color: var(--edge); }
 .admin-invitations .invite-tabs button[aria-pressed="true"] { color: var(--mint); border-color: var(--mint); background: #263a37; }
 .admin-invitations .invite-list { display: grid; gap: 8px; margin: 0; }
 .admin-invitations .invite-row {
@@ -557,24 +551,24 @@ button.danger { border-color: #f2a0a8; color: #ffd6df; }
   padding: 11px 14px; background: #1c2135; border: 1px solid var(--edge);
 }
 .admin-invitations .invite-row-main { flex: 1 1 260px; min-width: 0; display: grid; gap: 4px; }
-.admin-invitations .invite-row h3 { margin: 0; color: #fff; font-size: 21px; }
-.admin-invitations .invite-meta { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; color: var(--muted); font-size: 16px; }
+.admin-invitations .invite-row h3 { margin: 0; color: #fff; font-size: 16px; }
+.admin-invitations .invite-meta { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; color: var(--muted); font-size: 12px; }
 .admin-invitations .invite-badge {
-  padding: 1px 7px; font-size: 15px; letter-spacing: .4px; text-transform: uppercase;
+  padding: 1px 7px; font-size: 11px; letter-spacing: .4px; text-transform: uppercase;
   border: 1px solid var(--edge); color: var(--muted);
 }
 .admin-invitations .invite-badge.invite-active { color: var(--mint); border-color: #76b79b; }
 .admin-invitations .invite-badge.invite-expired { color: var(--yellow); border-color: #b9a35f; }
 .admin-invitations .invite-badge.invite-revoked { color: #ffb5b5; border-color: #f2a0a8; }
 .admin-invitations .invite-row-actions { display: flex; flex-wrap: wrap; gap: 6px; }
-.admin-invitations .invite-row-actions button { font-size: 17px; padding: 4px 10px; }
+.admin-invitations .invite-row-actions button { font-size: 13px; padding: 4px 10px; }
 .admin-invitations .invite-empty {
   margin: 0; padding: 22px 16px; display: grid; gap: 4px;
   border: 1px dashed var(--edge); text-align: center; color: var(--muted);
 }
 .admin-invitations .invite-empty p { margin: 0; }
-.admin-invitations .invite-empty-hint { font-size: 17px; }
-.admin-invitations .invite-more { justify-self: start; font-size: 18px; }
+.admin-invitations .invite-empty-hint { font-size: 13px; }
+.admin-invitations .invite-more { justify-self: start; font-size: 14px; }
 @media (max-width: 560px) {
   .admin-invitations { padding: 16px; }
   .admin-invitations .invite-form { padding: 14px; }
@@ -594,7 +588,7 @@ button.danger { border-color: #f2a0a8; color: #ffd6df; }
   background: var(--panel);
   border: 1px solid var(--edge);
   padding: 10px;
-  font-size: 20px;
+  font-size: 15px;
 }
 .usage-control summary {
   cursor: pointer;
@@ -604,7 +598,7 @@ button.danger { border-color: #f2a0a8; color: #ffd6df; }
 .health-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
 .health-grid > div { padding: 10px; border: 1px solid var(--edge); }
 .health-grid dt { color: var(--muted); }
-.health-grid dd { margin: 0; font-size: 32px; }
+.health-grid dd { margin: 0; font-size: 24px; }
 .product-health table { width: 100%; text-align: left; }
 .gallery-preview { height: auto; }
 .project-preview > .gallery-preview { height: 100%; object-fit: contain; }
@@ -623,7 +617,7 @@ button.danger { border-color: #f2a0a8; color: #ffd6df; }
   padding: 7px 16px;
   background: #1b2033;
   border-top: 3px solid var(--mint);
-  font-size: 17px;
+  font-size: 13px;
 }
 .demo-badge strong {
   color: var(--mint);
@@ -633,7 +627,7 @@ button.danger { border-color: #f2a0a8; color: #ffd6df; }
   margin: 0;
   color: var(--muted);
   flex: 1 1 320px;
-  font-size: 15px;
+  font-size: 11px;
   line-height: 1.25;
 }
 .demo-badge button {
@@ -655,7 +649,7 @@ body.demo-mode .app footer {
 }
 .demo-entry p {
   margin: 0;
-  font-size: 15px;
+  font-size: 11px;
 }
 .demo-shared-note {
   color: var(--mint);
@@ -673,7 +667,7 @@ body.demo-mode .app footer {
   color: var(--ink);
   border: 2px solid var(--mint);
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 /* ---- Workspace: STORY / SCREEN / CODE arranged around an exact-integer SCREEN scale (--px) ---- */
@@ -707,7 +701,7 @@ body.demo-mode .app footer {
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
-  font-size: 20px;
+  font-size: 15px;
 }
 .screen-view {
   display: block;
@@ -732,7 +726,7 @@ canvas {
   overflow: hidden;
 }
 .console {
-  font-size: 20px;
+  font-size: 15px;
   white-space: pre-wrap;
   overflow: auto;
   max-height: 36px;
@@ -753,7 +747,7 @@ canvas {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 20px;
+  font-size: 15px;
 }
 .input-prompt input {
   flex: 1;
@@ -878,15 +872,15 @@ canvas {
 }
 .story h2 {
   color: var(--yellow);
-  font-size: 32px;
+  font-size: 24px;
 }
 .story p {
   line-height: 1.4;
-  font-size: 26px;
+  font-size: 20px;
   margin: 0 0 0.6em;
 }
 .story .eyebrow {
-  font-size: 22px;
+  font-size: 17px;
   color: var(--mint);
 }
 .story .actions {
@@ -903,11 +897,11 @@ canvas {
 }
 .layout-split .story p,
 .layout-stack .story p {
-  font-size: 22px;
+  font-size: 17px;
 }
 .layout-split .story h2,
 .layout-stack .story h2 {
-  font-size: 27px;
+  font-size: 20px;
 }
 .layout-split .story-controls {
   width: min(38%, 380px);
@@ -970,12 +964,12 @@ canvas {
   border-bottom-width: 6px;
 }
 .hero-start span {
-  font-size: 38px;
+  font-size: 29px;
   font-weight: 650;
   line-height: 1.1;
 }
 .hero-start small {
-  font-size: 22px;
+  font-size: 17px;
 }
 .hero-start:hover {
   background: #c5f7e1;
@@ -984,13 +978,13 @@ canvas {
   display: grid;
   place-items: center;
   padding: 12px 26px;
-  font-size: 28px;
+  font-size: 21px;
 }
 .example-group {
   margin: 22px 0 12px;
   color: var(--mint);
   letter-spacing: 1px;
-  font-size: 24px;
+  font-size: 18px;
 }
 .example-group:first-of-type {
   margin-top: 0;
@@ -1011,7 +1005,7 @@ canvas {
   background: var(--mint);
   color: #132c27;
   padding: 1px 8px;
-  font-size: 18px;
+  font-size: 14px;
 }
 .gallery-grid.few {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1056,11 +1050,11 @@ canvas {
 }
 .unavailable-body h2 {
   color: var(--yellow);
-  font-size: 36px;
+  font-size: 27px;
 }
 .unavailable-body p {
   margin: 0;
-  font-size: 28px;
+  font-size: 21px;
   max-width: 640px;
   line-height: 1.35;
 }
@@ -1098,12 +1092,12 @@ canvas {
   padding: 8px 10px;
   border: 2px solid var(--edge);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 15px;
   line-height: 1.2;
 }
 .share-dialog .tile strong {
   color: var(--yellow);
-  font-size: 22px;
+  font-size: 17px;
 }
 .share-dialog .tile.selected {
   border-color: var(--mint);
@@ -1132,7 +1126,7 @@ canvas {
   grid-template-columns: auto 1fr;
   align-items: start;
   gap: 4px 8px;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.15;
   width: 190px;
   cursor: pointer;
@@ -1199,7 +1193,7 @@ canvas {
 }
 .card .spell-summary {
   margin: 4px 0 6px;
-  font-size: 23px;
+  font-size: 17px;
   color: #fff;
 }
 .card pre {
@@ -1213,11 +1207,11 @@ canvas {
 .spell-more summary {
   cursor: pointer;
   color: var(--mint);
-  font-size: 19px;
+  font-size: 14px;
 }
 .spell-more p {
   margin: 6px 0;
-  font-size: 20px;
+  font-size: 15px;
 }
 .drawer-content .card .actions {
   margin-top: 6px;
@@ -1231,7 +1225,7 @@ canvas {
   min-width: 0;
   flex: 1 1 0;
   max-width: 44px;
-  font-size: 22px;
+  font-size: 17px;
 }
 header h1 {
   flex-shrink: 0;
@@ -1239,11 +1233,11 @@ header h1 {
 :lang(ja) header button,
 :lang(ja) header input,
 :lang(ja) header select {
-  font-size: 16px;
+  font-size: 12px;
 }
 .layout-split .story-controls button,
 .layout-stack .story-controls button {
-  font-size: 20px;
+  font-size: 15px;
   padding: 4px 10px;
 }
 .layout-split .story-controls .actions,
@@ -1269,15 +1263,15 @@ header h1 {
   padding: 8px 12px;
 }
 .drawer-content .card .actions button {
-  font-size: 19px;
+  font-size: 14px;
   padding: 3px 10px;
 }
 .card .spell-summary {
   margin: 2px 0 4px;
-  font-size: 22px;
+  font-size: 17px;
 }
 .card pre {
-  font-size: 16px;
+  font-size: 12px;
   padding: 6px 8px;
 }
 .drawer-content .cards {
@@ -1285,7 +1279,7 @@ header h1 {
 }
 .layout-split .runtime-controls button,
 .layout-stack .runtime-controls button {
-  font-size: 20px;
+  font-size: 15px;
   padding: 4px 8px;
 }
 .layout-split .code-heading,
@@ -1297,7 +1291,7 @@ header h1 {
   flex-wrap: nowrap;
 }
 :lang(ja) .runtime-controls button {
-  font-size: 17px;
+  font-size: 13px;
 }
 
 .extras-items {
@@ -1306,7 +1300,7 @@ header h1 {
 
 .header-note {
   white-space: nowrap;
-  font-size: 18px;
+  font-size: 14px;
   color: var(--mint);
 }
 
@@ -1321,12 +1315,12 @@ header h1 {
   min-width: 0;
 }
 .app-header h1 {
-  font-size: 26px;
+  font-size: 20px;
 }
 .app-header button:not(dialog *),
 .app-header select:not(dialog *),
 .app-header .admin-link {
-  font-size: 19px;
+  font-size: 14px;
   padding: 4px 10px;
   white-space: nowrap;
 }
@@ -1351,7 +1345,7 @@ header h1 {
   flex: 0 1 300px;
   min-width: 9ch;
   width: auto;
-  font-size: 22px;
+  font-size: 17px;
   padding: 3px 6px;
   background: transparent;
   border: 1px solid transparent;
@@ -1371,7 +1365,7 @@ header h1 {
   min-width: 0;
   display: flex;
   gap: 8px;
-  font-size: 16px;
+  font-size: 12px;
   color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
@@ -1382,7 +1376,7 @@ header h1 {
   text-overflow: ellipsis;
 }
 .save-state .cloud-status {
-  font-size: 16px;
+  font-size: 12px;
 }
 .app-header .mode-controls {
   flex-shrink: 0;
@@ -1439,7 +1433,7 @@ header h1 {
   border: 1px solid var(--edge);
 }
 .remix-credit {
-  font-size: 17px;
+  font-size: 13px;
   color: var(--muted);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1464,7 +1458,7 @@ header h1 {
   flex-shrink: 0;
 }
 .screen-heading .runtime-controls button {
-  font-size: 20px;
+  font-size: 15px;
   padding: 3px 9px;
 }
 .screen-heading .runtime-controls button:not(.primary) {
@@ -1480,7 +1474,7 @@ header h1 {
 }
 .play-help {
   margin: 0;
-  font-size: 17px;
+  font-size: 13px;
   line-height: 18px;
   max-height: 36px;
   overflow: hidden;
@@ -1497,7 +1491,7 @@ header h1 {
 }
 .project-info textarea {
   resize: vertical;
-  font: 20px/1.35 Handjet, DotGothic16, monospace;
+  font: 15px/1.35 "Victor Mono", DotGothic16, monospace;
 }
 body.demo-mode .app {
   padding-bottom: 46px;
@@ -1540,16 +1534,16 @@ body.demo-mode .app {
   padding: 16px 18px;
 }
 .viewer-info h2 {
-  font-size: 34px;
+  font-size: 26px;
   line-height: 1.05;
   margin-bottom: 6px;
 }
 .viewer-info .viewer-meta {
   color: var(--muted);
-  font-size: 18px;
+  font-size: 14px;
 }
 .viewer-info .viewer-description {
-  font-size: 22px;
+  font-size: 17px;
   margin: 10px 0;
 }
 .how-to-play {
@@ -1558,7 +1552,7 @@ body.demo-mode .app {
   border-left: 3px solid var(--mint);
 }
 .how-to-play h3 {
-  font-size: 18px;
+  font-size: 14px;
   color: var(--muted);
   letter-spacing: 1px;
   margin: 0 0 2px;
@@ -1587,11 +1581,11 @@ body.demo-mode .app {
     gap: 8px;
   }
   .app-header h1 {
-    font-size: 22px;
+    font-size: 17px;
   }
   .app-header button:not(dialog *),
   .app-header select:not(dialog *) {
-    font-size: 18px;
+    font-size: 14px;
     padding: 3px 7px;
   }
   /* One row even on tablets: the constant "saved in this browser" note gives way; cloud state and notices stay. */
@@ -1605,7 +1599,7 @@ body.demo-mode .app {
 :lang(ja) .app-header button:not(dialog *),
 :lang(ja) .app-header select:not(dialog *),
 :lang(ja) .project-identity .project-title {
-  font-size: 16px;
+  font-size: 12px;
 }
 /* Menu entries read as a list, not as a second row of buttons. */
 .more-panel {
@@ -1619,7 +1613,7 @@ body.demo-mode .app {
   text-align: left;
   width: 100%;
   padding: 5px 10px;
-  font-size: 20px;
+  font-size: 15px;
 }
 .more-panel button:not(dialog *):hover,
 .more-panel .button-link:hover {
@@ -1702,7 +1696,7 @@ body.demo-mode .app {
 .inv-hint {
   margin: 0;
   color: var(--muted);
-  font-size: 19px;
+  font-size: 14px;
   grid-column: 1 / -1;
 }
 .inv-stage {
@@ -1752,7 +1746,7 @@ body.demo-mode .app {
 }
 .inv-title h3 {
   margin: 0;
-  font-size: 22px;
+  font-size: 17px;
   line-height: 1.1;
   overflow-wrap: anywhere;
 }
@@ -1760,7 +1754,7 @@ body.demo-mode .app {
   color: var(--mint);
   border: 1px solid var(--edge);
   padding: 1px 6px;
-  font-size: 13px;
+  font-size: 10px;
   letter-spacing: 0.5px;
   line-height: 1.25;
 }
@@ -1769,7 +1763,7 @@ body.demo-mode .app {
 }
 .inv-id code {
   color: var(--yellow);
-  font-size: 15px;
+  font-size: 11px;
 }
 .inv-snippet {
   margin: 0;
@@ -1782,10 +1776,7 @@ body.demo-mode .app {
 .inv-snippet code {
   color: var(--yellow);
   font:
-    15px/1.4 ui-monospace,
-    SFMono-Regular,
-    Consolas,
-    monospace;
+    15px/1.4 "Victor Mono", DotGothic16, monospace;
   white-space: pre;
 }
 .inv-actions {
@@ -1794,11 +1785,11 @@ body.demo-mode .app {
   gap: 6px;
 }
 .inv-actions button {
-  font-size: 16px;
+  font-size: 12px;
   padding: 4px 9px;
 }
 .inv-actions .inv-insert {
-  font-size: 17px;
+  font-size: 13px;
   padding: 5px 10px;
 }
 .inv-hidden {
@@ -1806,7 +1797,7 @@ body.demo-mode .app {
 }
 .inv-search input {
   width: 100%;
-  font-size: 18px;
+  font-size: 14px;
 }
 .inv-filters {
   display: flex;
@@ -1818,7 +1809,7 @@ body.demo-mode .app {
   align-items: center;
   gap: 6px;
   padding: 3px 8px;
-  font-size: 16px;
+  font-size: 12px;
   background: #1c2135;
   border-color: var(--edge);
 }
@@ -1828,7 +1819,7 @@ body.demo-mode .app {
   color: var(--mint);
 }
 .inv-count {
-  font-size: 13px;
+  font-size: 10px;
   opacity: 0.75;
 }
 .inv-results {
@@ -1854,7 +1845,7 @@ body.demo-mode .app {
   border: 1px solid var(--edge);
   border-bottom-width: 3px;
   color: #fff;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 1;
 }
 .inv-slot:hover {
@@ -1882,7 +1873,7 @@ body.demo-mode .app {
   background-size: 12px 12px;
 }
 .inv-label {
-  font-size: 12px;
+  font-size: 9px;
   line-height: 1.1;
   letter-spacing: 0.3px;
   color: var(--muted);
@@ -1900,18 +1891,18 @@ body.demo-mode .app {
 }
 .inv-empty p {
   margin: 0;
-  font-size: 17px;
+  font-size: 13px;
   color: var(--muted);
 }
 .inv-empty button {
   margin-top: 8px;
-  font-size: 16px;
+  font-size: 12px;
   padding: 4px 10px;
 }
 .inv-notes {
   flex: 0 0 auto;
   padding: 3px 8px;
-  font-size: 15px;
+  font-size: 11px;
   text-align: left;
   color: var(--muted);
   background: transparent;
@@ -1937,7 +1928,7 @@ body.demo-mode .app {
     height: 54px;
   }
   .inv-title h3 {
-    font-size: 19px;
+    font-size: 14px;
   }
   .inv-grid {
     grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
@@ -1955,17 +1946,17 @@ body.demo-mode .app {
 .inv-new {
   margin-left: auto;
   padding: 3px 10px;
-  font-size: 15px;
+  font-size: 11px;
 }
 .inv-note {
   margin: 0;
   padding: 10px;
   border: 1px dashed var(--edge);
   color: var(--muted);
-  font-size: 16px;
+  font-size: 12px;
 }
 .inv-note button {
-  font-size: 15px;
+  font-size: 11px;
   padding: 2px 8px;
 }
 
@@ -2001,33 +1992,33 @@ dialog.px::backdrop {
   background: #171c2e;
 }
 .px-header h2 {
-  font-size: 21px;
+  font-size: 16px;
   letter-spacing: 0.5px;
 }
 .px-name {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 15px;
+  font-size: 11px;
   color: var(--muted);
 }
 .px-name input {
   width: 180px;
-  font-size: 16px;
+  font-size: 12px;
   padding: 4px 6px;
 }
 .px-status {
   flex: 1;
   min-width: 90px;
   color: var(--mint);
-  font-size: 15px;
+  font-size: 11px;
 }
 .px-header-actions {
   display: flex;
   gap: 6px;
 }
 .px-header-actions button {
-  font-size: 15px;
+  font-size: 11px;
   padding: 4px 10px;
 }
 .px-body {
@@ -2049,7 +2040,7 @@ dialog.px::backdrop {
   align-items: center;
   gap: 2px;
   padding: 5px 2px;
-  font-size: 11px;
+  font-size: 8px;
   line-height: 1.1;
   background: #1a2032;
   border-color: #2c3550;
@@ -2073,7 +2064,7 @@ dialog.px::backdrop {
 .px-history button {
   flex: 1;
   padding: 2px 0;
-  font-size: 18px;
+  font-size: 14px;
 }
 .px-view {
   position: relative;
@@ -2107,7 +2098,7 @@ dialog.px::backdrop {
 }
 .px-side h3 {
   margin: 0 0 4px;
-  font-size: 14px;
+  font-size: 11px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--muted);
@@ -2131,7 +2122,7 @@ dialog.px::backdrop {
   width: 100%;
   margin-bottom: 5px;
   padding: 3px;
-  font-size: 12px;
+  font-size: 9px;
   background-color: #161d31;
   background-image: conic-gradient(
     #232c44 25%,
@@ -2155,7 +2146,7 @@ dialog.px::backdrop {
 }
 .px-size,
 .px-template {
-  font-size: 13px;
+  font-size: 10px;
   padding: 2px 8px;
 }
 .px-size[aria-pressed="true"] {
@@ -2165,13 +2156,13 @@ dialog.px::backdrop {
 }
 .px-help {
   margin-top: auto;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 1.35;
   color: var(--muted);
 }
 .px-help summary {
   cursor: pointer;
-  font-size: 14px;
+  font-size: 11px;
   color: var(--mint);
 }
 .px-help p {
@@ -2187,7 +2178,7 @@ dialog.px::backdrop {
   background: #171c2e;
 }
 .px-footer button {
-  font-size: 14px;
+  font-size: 11px;
   padding: 2px 8px;
 }
 .px-zoom {
@@ -2198,12 +2189,12 @@ dialog.px::backdrop {
 .px-zoom-value {
   min-width: 42px;
   text-align: center;
-  font-size: 15px;
+  font-size: 11px;
   color: var(--mint);
 }
 .px-coordinates {
   margin-left: auto;
-  font-size: 14px;
+  font-size: 11px;
   color: var(--muted);
 }
 .px-footer .px-animate {
@@ -2222,13 +2213,13 @@ dialog.px::backdrop {
   background: #0a0e1ce0;
 }
 .px-confirm h3 {
-  font-size: 22px;
+  font-size: 17px;
   color: var(--yellow);
 }
 .px-confirm p {
   max-width: 440px;
   margin: 0;
-  font-size: 17px;
+  font-size: 13px;
   line-height: 1.35;
 }
 .px-confirm-actions {
@@ -2255,11 +2246,11 @@ dialog.px::backdrop {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-size: 11px;
 }
 .px-anim-bar button,
 .px-anim-bar select {
-  font-size: 14px;
+  font-size: 11px;
   padding: 2px 8px;
 }
 .px-anim-bar button[aria-pressed="true"] {
@@ -2290,12 +2281,12 @@ dialog.px::backdrop {
 }
 .px-onion-sides button {
   padding: 2px 6px;
-  font-size: 12px;
+  font-size: 9px;
 }
 .px-frame-count {
   min-width: 54px;
   color: var(--mint);
-  font-size: 15px;
+  font-size: 11px;
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
@@ -2373,7 +2364,7 @@ dialog.px::backdrop {
   border-radius: 3px;
   background: #0b0f1bbb;
   color: #fff;
-  font-size: 11px;
+  font-size: 8px;
   line-height: 1.25;
   text-shadow: 0 1px 2px #000;
 }
@@ -2392,7 +2383,7 @@ dialog.px::backdrop {
 .px-anim-note {
   margin: 0;
   color: var(--yellow);
-  font-size: 13px;
+  font-size: 10px;
   line-height: 1.35;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2443,18 +2434,18 @@ dialog.px::backdrop {
     margin-top: 0;
   }
   .px-header h2 {
-    font-size: 18px;
+    font-size: 14px;
   }
   .px-anim {
     padding: 5px 8px 6px;
   }
   .px-anim-bar {
     gap: 4px;
-    font-size: 13px;
+    font-size: 10px;
   }
   .px-anim-bar button,
   .px-anim-bar select {
-    font-size: 13px;
+    font-size: 10px;
     padding: 2px 6px;
   }
   .px-anim-thumb {
@@ -2462,7 +2453,7 @@ dialog.px::backdrop {
     height: 38px;
   }
   .px-anim-note {
-    font-size: 12px;
+    font-size: 9px;
   }
   .px-frame-actions {
     margin-left: 0;
@@ -2483,7 +2474,7 @@ dialog.px::backdrop {
   color: #fff;
   border: 3px solid var(--mint);
   box-shadow: 8px 8px 0 #080c1790;
-  font-size: 19px;
+  font-size: 14px;
   line-height: 1.3;
 }
 .inline-reference:focus-visible {
@@ -2498,7 +2489,7 @@ dialog.px::backdrop {
 }
 .reference-kind {
   color: var(--muted);
-  font-size: 16px;
+  font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -2508,8 +2499,8 @@ dialog.px::backdrop {
   background: #121726;
   border: 1px solid var(--mint);
   color: var(--mint);
-  font-family: Handjet, DotGothic16, monospace;
-  font-size: 22px;
+  font-family: "Victor Mono", DotGothic16, monospace;
+  font-size: 17px;
   overflow-wrap: anywhere;
 }
 .reference-close {
@@ -2517,18 +2508,18 @@ dialog.px::backdrop {
   height: 34px;
   padding: 0;
   flex-shrink: 0;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1;
 }
 .inline-reference h2 {
   margin: 0;
   color: var(--mint);
-  font-size: 26px;
+  font-size: 20px;
   line-height: 1.15;
 }
 .reference-summary {
   margin: 0;
-  font-size: 20px;
+  font-size: 15px;
 }
 .reference-syntax {
   display: block;
@@ -2536,7 +2527,7 @@ dialog.px::backdrop {
   background: #121726;
   border: 1px dashed #66718f;
   color: #ffe38a;
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-family: "Victor Mono", DotGothic16, monospace;
   font-size: 16px;
   overflow-wrap: anywhere;
 }
@@ -2548,7 +2539,7 @@ dialog.px::backdrop {
   background: #121726;
   border: 1px solid #66718f;
   color: #ffe38a;
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-family: "Victor Mono", DotGothic16, monospace;
   font-size: 16px;
   line-height: 1.3;
   white-space: pre;
@@ -2574,7 +2565,7 @@ dialog.px::backdrop {
 .reference-try {
   margin: 0;
   color: var(--muted);
-  font-size: 17px;
+  font-size: 13px;
 }
 .reference-actions {
   display: flex;
@@ -2583,7 +2574,7 @@ dialog.px::backdrop {
 }
 .reference-actions button {
   padding: 4px 10px;
-  font-size: 18px;
+  font-size: 14px;
 }
 .reference-confirm {
   border-top: 1px solid #66718f;
@@ -2591,24 +2582,24 @@ dialog.px::backdrop {
 }
 .reference-confirm p {
   margin: 0 0 6px;
-  font-size: 17px;
+  font-size: 13px;
 }
 .reference-status {
   min-height: 1.2em;
   margin: 0;
   color: var(--mint);
-  font-size: 17px;
+  font-size: 13px;
 }
 @media (max-width: 560px) {
   .inline-reference {
     padding: 10px;
-    font-size: 17px;
+    font-size: 13px;
   }
   .inline-reference h2 {
-    font-size: 22px;
+    font-size: 17px;
   }
   .reference-summary {
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 @media (max-height: 560px) {
@@ -2617,10 +2608,10 @@ dialog.px::backdrop {
   }
 }
 :lang(ja) .inline-reference {
-  font-size: 16px;
+  font-size: 12px;
 }
 :lang(ja) .reference-summary {
-  font-size: 17px;
+  font-size: 13px;
 }
 
 /* ---- SOUND LAB (card #124): pitch / volume / wave graph, presets, envelope ---- */
@@ -2658,20 +2649,20 @@ dialog.sl::backdrop {
   background: #171c2e;
 }
 .sl-header h2 {
-  font-size: 21px;
+  font-size: 16px;
   letter-spacing: 0.5px;
 }
 .sl-name {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 15px;
+  font-size: 11px;
   color: var(--muted);
   min-width: 0;
 }
 .sl-name input {
   width: 190px;
-  font-size: 16px;
+  font-size: 12px;
   padding: 4px 6px;
 }
 .sl-name input[aria-invalid="true"] {
@@ -2681,7 +2672,7 @@ dialog.sl::backdrop {
   flex: 1;
   min-width: 90px;
   color: var(--mint);
-  font-size: 15px;
+  font-size: 11px;
 }
 .sl-status.error {
   color: #ff9b9b;
@@ -2691,7 +2682,7 @@ dialog.sl::backdrop {
   gap: 6px;
 }
 .sl-header-actions button {
-  font-size: 15px;
+  font-size: 11px;
   padding: 4px 10px;
 }
 .sl-engine {
@@ -2700,7 +2691,7 @@ dialog.sl::backdrop {
   background: #2b2540;
   border-bottom: 1px solid var(--yellow);
   color: var(--yellow);
-  font-size: 15px;
+  font-size: 11px;
 }
 .sl-body {
   display: grid;
@@ -2725,7 +2716,7 @@ dialog.sl::backdrop {
   background: #151a2b;
 }
 .sl-col h3 {
-  font-size: 18px;
+  font-size: 14px;
 }
 .sl-kinds {
   display: grid;
@@ -2738,10 +2729,10 @@ dialog.sl::backdrop {
   padding: 6px 10px;
 }
 .sl-kind strong {
-  font-size: 17px;
+  font-size: 13px;
 }
 .sl-kind span {
-  font-size: 13px;
+  font-size: 10px;
   color: var(--muted);
   line-height: 1.25;
 }
@@ -2754,14 +2745,14 @@ dialog.sl::backdrop {
   gap: 6px;
 }
 .sl-preset {
-  font-size: 16px;
+  font-size: 12px;
   padding: 7px 6px;
 }
 .sl-preset[aria-pressed="true"] {
   background: #23304a;
 }
 .sl-guide {
-  font-size: 14px;
+  font-size: 11px;
   color: var(--muted);
 }
 .sl-guide summary {
@@ -2771,7 +2762,7 @@ dialog.sl::backdrop {
 .sl-guide h4 {
   margin: 8px 0 2px;
   color: var(--yellow);
-  font-size: 15px;
+  font-size: 11px;
 }
 .sl-guide ol {
   margin: 0;
@@ -2841,7 +2832,7 @@ dialog.sl::backdrop {
 .sl-graph figcaption span {
   position: absolute;
   left: 8px;
-  font-size: 13px;
+  font-size: 10px;
   color: var(--muted);
   pointer-events: none;
   text-shadow: 0 0 3px #0e1220;
@@ -2866,7 +2857,7 @@ dialog.sl::backdrop {
 }
 .sl-preview {
   min-width: 128px;
-  font-size: 18px;
+  font-size: 14px;
 }
 .sl-preview[aria-pressed="true"] {
   background: var(--yellow);
@@ -2881,7 +2872,7 @@ dialog.sl::backdrop {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 15px;
+  font-size: 11px;
   color: var(--muted);
 }
 .sl-auto input {
@@ -2893,7 +2884,7 @@ dialog.sl::backdrop {
   margin: 0;
   padding: 8px 10px;
   border: 1px solid var(--edge);
-  font-size: 15px;
+  font-size: 11px;
 }
 .sl-notice.error {
   border-color: #ff9b9b;
@@ -2902,7 +2893,7 @@ dialog.sl::backdrop {
 .sl-hint {
   margin: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 11px;
   line-height: 1.35;
 }
 .sl-piano {
@@ -2936,7 +2927,7 @@ dialog.sl::backdrop {
 }
 .sl-key kbd {
   font: inherit;
-  font-size: 12px;
+  font-size: 9px;
   color: #56608a;
 }
 .sl-saved {
@@ -2950,7 +2941,7 @@ dialog.sl::backdrop {
 }
 .sl-saved code {
   color: var(--mint);
-  font-size: 17px;
+  font-size: 13px;
   overflow-wrap: anywhere;
 }
 /* controls */
@@ -2965,7 +2956,7 @@ dialog.sl::backdrop {
 .sl-group legend {
   padding: 0 6px;
   color: var(--yellow);
-  font-size: 16px;
+  font-size: 12px;
 }
 .sl-waves {
   display: grid;
@@ -2977,7 +2968,7 @@ dialog.sl::backdrop {
   justify-items: center;
   gap: 3px;
   padding: 6px 2px;
-  font-size: 13px;
+  font-size: 10px;
   min-width: 0;
 }
 .sl-wave span {
@@ -2996,13 +2987,13 @@ dialog.sl::backdrop {
   row-gap: 2px;
 }
 .sl-label {
-  font-size: 16px;
+  font-size: 12px;
 }
 .sl-value {
   min-width: 84px;
   text-align: right;
   color: var(--mint);
-  font-size: 15px;
+  font-size: 11px;
   font-variant-numeric: tabular-nums;
 }
 .sl-range {
@@ -3020,7 +3011,7 @@ dialog.sl::backdrop {
   height: 24px;
   padding: 0;
   border-radius: 50%;
-  font-size: 14px;
+  font-size: 11px;
   line-height: 1;
 }
 .sl-help-text {
@@ -3030,7 +3021,7 @@ dialog.sl::backdrop {
   background: #1a2032;
   border-left: 3px solid var(--yellow);
   color: #d5d9ea;
-  font-size: 14px;
+  font-size: 11px;
   line-height: 1.35;
 }
 .sl-row-help {
@@ -3046,7 +3037,7 @@ dialog.sl::backdrop {
 }
 .sl-direction button {
   flex: 1 1 auto;
-  font-size: 15px;
+  font-size: 11px;
   padding: 5px 8px;
 }
 .sl-direction button[aria-pressed="true"] {
@@ -3064,12 +3055,12 @@ dialog.sl::backdrop {
   background: #0a0e1ce8;
 }
 .sl-confirm h3 {
-  font-size: 22px;
+  font-size: 17px;
 }
 .sl-confirm p {
   max-width: 440px;
   margin: 0;
-  font-size: 17px;
+  font-size: 13px;
   line-height: 1.35;
 }
 .sl-confirm-actions {
@@ -3079,7 +3070,7 @@ dialog.sl::backdrop {
 }
 .inv-new-sound {
   padding: 3px 10px;
-  font-size: 15px;
+  font-size: 11px;
 }
 .inv-new + .inv-new-sound {
   margin-left: 0;
