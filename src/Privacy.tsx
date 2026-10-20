@@ -6,6 +6,12 @@ import { cloudLinkKey } from "./cloudStorage";
 import { useLocale } from "./useLocale";
 import { locales, t, type Locale } from "./i18n";
 import type { PolicyConfiguration } from "../shared/policy";
+import {
+  PrivacyText,
+  TermsText,
+  privacyVersion,
+  termsVersion,
+} from "./LegalText";
 export function PolicyLinks({ locale }: { locale: Locale }) {
   const c = (key: string) => hostedCopy(key, locale);
   return (
@@ -50,7 +56,11 @@ export default function PolicyPage({ kind }: { kind: "privacy" | "terms" }) {
   }, [kind, locale]);
   const url = kind === "privacy" ? config?.privacyUrl : config?.termsUrl,
     version =
-      kind === "privacy" ? config?.privacyVersion : config?.termsVersion;
+      kind === "privacy" ? config?.privacyVersion : config?.termsVersion,
+    // The configured version is the bundled reviewed text: show it inline.
+    bundled =
+      !!version &&
+      version === (kind === "privacy" ? privacyVersion : termsVersion);
   return (
     <main className="public-home">
       <div className="home-content">
@@ -78,6 +88,12 @@ export default function PolicyPage({ kind }: { kind: "privacy" | "terms" }) {
           <p role="alert">{c("error_UNAVAILABLE")}</p>
         ) : !config ? (
           <p>{c("working")}</p>
+        ) : bundled ? (
+          kind === "privacy" ? (
+            <PrivacyText />
+          ) : (
+            <TermsText />
+          )
         ) : url && version ? (
           <section>
             <p>
@@ -90,7 +106,7 @@ export default function PolicyPage({ kind }: { kind: "privacy" | "terms" }) {
         ) : (
           <p role="status">{c("policyPlaceholder")}</p>
         )}
-        <section className="class-card">
+        <section className="class-card" hidden={bundled}>
           <h2>{c("currentDataPractices")}</h2>
           <p>{c("dataPractices")}</p>
           <p>{c("storagePractices")}</p>

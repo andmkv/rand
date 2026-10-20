@@ -58,6 +58,14 @@ const app = buildApp(pg.db, false, {
   sessionDays: 14,
   publicRegistrationEnabled:
     process.env.CLOSED_TEST_E2E !== "1" && !bootstrapMode,
+  // Mirrors the production public-registration policy configuration.
+  ...(process.env.E2E_POLICY === "1" && {
+    termsVersion: "terms-2026-1",
+    privacyVersion: "privacy-2026-1",
+    termsUrl: new URL("/terms", webOrigin).href,
+    privacyUrl: new URL("/privacy", webOrigin).href,
+    supportEmail: "support@example.invalid",
+  }),
   mailer: new Mailer(
     new FileMail("/tmp/randusr-e2e-mail"),
     webOrigin,
